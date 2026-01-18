@@ -25,6 +25,11 @@ from core.watchdog import log_self_heal, SNAPSHOTS_DIR
 REPAIR_TIMEOUT = 20  # seconds per action
 MAX_RETRIES = 2
 
+# Circuit breaker for audio repairs
+_audio_repair_attempts = []
+AUDIO_REPAIR_MAX_ATTEMPTS = 3
+AUDIO_REPAIR_COOLDOWN_MINUTES = 10
+
 
 class RepairResult(Enum):
     SUCCESS = "success"
@@ -223,9 +228,38 @@ class RepairEngine:
             return RepairAction("restart_tts", RepairResult.FAILED, str(e), time.time() - start, snapshot)
 
     def restart_audio_device(self) -> RepairAction:
-        """Try reopening microphone with different device indices."""
+        """Try reopening microphone with different device indices.
+        
+        Includes circuit breaker to prevent endless loops.
+        """
+        global _audio_repair_attempts
         start = time.time()
-        log_self_heal("Action: restart_audio_device")
+        
+        # Circuit breaker check
+        now = time.time()
+        cutoff = now - (AUDIO_REPAIR_COOLDOWN_MINUTES * 60)
+        _audio_repair_attempts = [t for t in _audio_repair_attempts if t > cutoff]
+        
+        if len(_audio_repair_attempts) >= AUDIO_REPAIR_MAX_ATTEMPTS:
+            log_self_heal(f"Circuit breaker OPEN: {len(_audio_repair_attempts)} attempts in {AUDIO_REPAIR_COOLDOWN_MINUTES}min", "WARNING")
+            self._speak("I'm pausing microphone repair. Please check the hardware or settings manually.")
+            
+            # Disable auto-repair
+            try:
+                env_path = Path(__file__).parent.parent / ".env"
+                env_content = env_path.read_text() if env_path.exists() else ""
+                if "SELF_HEAL_AUTO_REPAIR=true" in env_content:
+                    env_content = env_content.replace("SELF_HEAL_AUTO_REPAIR=true", "SELF_HEAL_AUTO_REPAIR=false")
+                    env_path.write_text(env_content)
+                    log_self_heal("Auto-repair disabled by circuit breaker")
+            except:
+                pass
+            
+            return RepairAction("restart_audio_device", RepairResult.SKIPPED, 
+                "Circuit breaker: too many attempts", time.time() - start, None)
+        
+        _audio_repair_attempts.append(now)
+        log_self_heal(f"Action: restart_audio_device (attempt {len(_audio_repair_attempts)}/{AUDIO_REPAIR_MAX_ATTEMPTS})")
         snapshot = create_snapshot("restart_audio_device")
         
         try:
@@ -516,4 +550,6 @@ def get_repair_engine() -> RepairEngine:
     if _engine is None:
         _engine = RepairEngine()
     return _engine
+
+
 

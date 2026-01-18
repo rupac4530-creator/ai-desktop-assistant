@@ -271,20 +271,31 @@ class ASREngine:
             self.on_transcription_complete(text, confidence)
 
     def start_stream(self) -> bool:
-        """Start the audio input stream."""
+        """Start the audio input stream with device selection."""
         if not AUDIO_AVAILABLE:
             print("[ASR] Audio libraries not available")
             return False
+        
+        # Get device index from env or state
+        device_idx = self._get_mic_device_index()
+        sample_rate = int(os.getenv("MIC_SAMPLE_RATE", str(SAMPLE_RATE)))
+        
         try:
+            # Close any existing stream first
+            self.stop_stream()
+            time.sleep(0.3)  # Brief pause before reopening
+            
             self.stream = sd.InputStream(
-                samplerate=SAMPLE_RATE,
+                samplerate=sample_rate,
                 channels=CHANNELS,
                 dtype="int16",
                 blocksize=BLOCKSIZE,
-                callback=self._audio_callback
+                callback=self._audio_callback,
+                device=device_idx,  # Use specific device
             )
             self.stream.start()
-            log_debug("Audio stream started")
+            log_debug(f"Audio stream started (device={device_idx}, rate={sample_rate})")
+            print(f"[ASR] Audio stream started (device={device_idx})")
             return True
         except Exception as e:
             print(f"[ASR] Stream error: {e}")
@@ -292,6 +303,29 @@ class ASREngine:
             if self.on_mic_error:
                 self.on_mic_error("Cannot access microphone. Check permissions.")
             return False
+    
+    def _get_mic_device_index(self):
+        """Get the configured microphone device index."""
+        # Check environment variable first
+        env_idx = os.getenv("MIC_DEVICE_INDEX")
+        if env_idx is not None:
+            try:
+                return int(env_idx)
+            except ValueError:
+                pass
+        
+        # Check state.json
+        state_file = Path(__file__).parent.parent / "core" / "state.json"
+        if state_file.exists():
+            try:
+                state = json.loads(state_file.read_text())
+                if "mic_device_index" in state:
+                    return state["mic_device_index"]
+            except:
+                pass
+        
+        # Return None to use system default
+        return None
 
     def stop_stream(self):
         """Stop the audio input stream."""
@@ -571,3 +605,4 @@ if __name__ == "__main__":
 
     engine.stop_stream()
     print("\nDone!")
+
