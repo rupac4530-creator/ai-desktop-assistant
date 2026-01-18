@@ -30,6 +30,22 @@ from core.llm_brain import (
 )
 from core.model_selector import get_model_for_task
 
+# Git integration
+try:
+    from core.git_helper import (
+        snapshot_repo as git_snapshot,
+        start_autobranch,
+        commit_patch as git_commit,
+        merge_branch,
+        rollback_to,
+        get_current_commit,
+        log_git_action,
+        is_git_repo,
+    )
+    GIT_ENABLED = is_git_repo()
+except ImportError:
+    GIT_ENABLED = False
+
 # Paths
 PROJECT_ROOT = Path(__file__).parent.parent
 LOGS_DIR = PROJECT_ROOT / "logs"
@@ -565,3 +581,7 @@ if __name__ == "__main__":
     print("  from core.autonomous_coder import analyze_and_fix, implement_feature")
     print("  result = analyze_and_fix('Description of the issue')")
     print("  result = implement_feature('Description of new feature')")
+
+
+
+
