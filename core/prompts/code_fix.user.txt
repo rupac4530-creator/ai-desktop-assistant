@@ -1,0 +1,14 @@
+﻿You are analyzing a code issue. Here is the context:
+
+CONTEXT FILES:
+{context_files}
+
+TARGET FILE: {target_file}
+
+CURRENT CONTENT:
+{current_content}
+
+ISSUE/INSTRUCTION:
+{instruction}
+
+Generate a unified diff patch to fix this issue. Output ONLY the diff.

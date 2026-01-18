@@ -1,0 +1,22 @@
+# Configuration for AI Desktop Assistant
+
+# API Keys (set these in environment variables or here)
+openai_api_key: ""
+elevenlabs_api_key: ""
+
+# Voice settings
+voice: "Rachel"
+model: "eleven_monolingual_v1"
+
+# Speech settings
+recording_duration: 5  # seconds
+
+# Avatar settings (for future)
+avatar_app: "VTube Studio"  # or Animaze
+model_path: ""
+
+# System settings
+default_apps:
+  youtube: "https://www.youtube.com"
+  whatsapp: "whatsapp"
+  notepad: "notepad"

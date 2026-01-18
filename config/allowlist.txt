@@ -1,0 +1,25 @@
+# Allowlist of safe applications that can be opened without confirmation
+# One app name per line (case-insensitive match)
+# Add more as needed
+
+youtube
+chrome
+firefox
+edge
+vscode
+code
+notepad
+calculator
+calc
+whatsapp
+spotify
+discord
+telegram
+slack
+teams
+outlook
+word
+excel
+powerpoint
+paint
+explorer

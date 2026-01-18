@@ -1,0 +1,8 @@
+openai
+websocket-client
+requests
+python-dotenv
+pydub
+sounddevice
+langdetect
+faster-whisper

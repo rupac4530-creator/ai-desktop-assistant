@@ -1,0 +1,14 @@
+{
+  "action": "open_app|type_text|search_web|run_code|speak|animate|save_memory|query_memory|confirm|noop",
+  "parameters": {
+    "app_name": "string (e.g., 'youtube')",
+    "url": "string (if search_web)",
+    "code": "string (if run_code)",
+    "text": "string (if speak or type_text)",
+    "language": "en|hi",
+    "confirm": "boolean",
+    "animation": "string (animation id)"
+  },
+  "explain": "short human readable explanation",
+  "voice": true
+}

@@ -1,0 +1,408 @@
+﻿# orchestrator/manager.py
+"""Async job queue and task executor with robustness features."""
+
+import asyncio
+import json
+import logging
+import os
+import time
+import datetime
+from dataclasses import dataclass, field
+from typing import Any, Callable, Dict, List, Optional
+from enum import Enum
+
+# Setup logging
+LOG_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs')
+os.makedirs(LOG_DIR, exist_ok=True)
+
+# File handlers
+file_handler = logging.FileHandler(os.path.join(LOG_DIR, 'multitask.log'))
+file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+
+actions_handler = logging.FileHandler(os.path.join(LOG_DIR, 'actions.log'))
+actions_handler.setFormatter(logging.Formatter('%(asctime)s - %(message)s'))
+
+logger = logging.getLogger('orchestrator')
+logger.setLevel(logging.INFO)
+logger.addHandler(file_handler)
+
+action_logger = logging.getLogger('actions')
+action_logger.setLevel(logging.INFO)
+action_logger.addHandler(actions_handler)
+
+
+class StepStatus(Enum):
+    PENDING = "pending"
+    RUNNING = "running"
+    COMPLETED = "completed"
+    FAILED = "failed"
+    SKIPPED = "skipped"
+
+
+@dataclass
+class JobStep:
+    type: str
+    params: Dict[str, Any] = field(default_factory=dict)
+    status: StepStatus = StepStatus.PENDING
+    result: Any = None
+    error: str = None
+    started_at: float = None
+    completed_at: float = None
+    retries: int = 0
+
+
+@dataclass 
+            success = True
+            for i, step in enumerate(job.steps):
+                step.status = StepStatus.RUNNING
+                step.started_at = time.time()
+
+                # Snapshot pre-step for safety
+                try:
+                    snap_path = os.path.join(LOG_DIR, 'snapshots', f'{job.id}_step{i+1}_{int(time.time())}.png')
+                    os.makedirs(os.path.dirname(snap_path), exist_ok=True)
+                    try:
+                        from vision.screen_capture import capture_fullscreen
+                        capture_fullscreen(snap_path)
+                        logger.info(f"Snapshot saved: {snap_path}")
+                    except Exception:
+                        pass
+                except Exception:
+                    snap_path = None
+
+                attempt = 0
+                max_attempts = 3
+                backoff = 1
+                last_error = None
+
+                while attempt < max_attempts:
+                    try:
+                        handler = self.handlers.get(step.type)
+                        if handler:
+                            print(f"[Executor] Step {i+1}/{len(job.steps)}: {step.type} (attempt {attempt+1})")
+                            # Respect per-step timeout if provided
+                            timeout = step.params.get('timeout', 30)
+                            coro = handler(step.params)
+                            if hasattr(asyncio, 'wait_for'):
+                                result = await asyncio.wait_for(coro, timeout=timeout)
+                            else:
+                                result = await coro
+                            step.result = result
+                            step.status = StepStatus.COMPLETED
+                            last_error = None
+                            break
+                        else:
+                            print(f"[Executor] Unknown step type: {step.type}")
+                            step.status = StepStatus.SKIPPED
+                            step.error = f"Unknown step type: {step.type}"
+                            last_error = step.error
+                            break
+                    except asyncio.TimeoutError:
+                        last_error = f"Timeout after {timeout}s"
+                        logger.warning(f"Step {step.type} timed out (attempt {attempt+1})")
+                        print(f"[Executor] Step timeout: {step.type}")
+                    except Exception as e:
+                        last_error = str(e)
+                        logger.error(f"Step {step.type} error (attempt {attempt+1}): {e}")
+                        print(f"[Executor] Step error: {e}")
+
+                    attempt += 1
+                    if attempt < max_attempts:
+                        await asyncio.sleep(backoff)
+                        backoff *= 2
+
+                if last_error:
+                    step.status = StepStatus.FAILED
+                    step.error = last_error
+                    success = False
+
+                step.completed_at = time.time()
+
+                if on_step_complete:
+                    on_step_complete(i, step)
+
+                # Stop on failure unless it's a wait step
+                if step.status == StepStatus.FAILED and step.type != 'wait':
+                    break
+    STEP_TIMEOUT = 60  # seconds
+    RETRY_BACKOFF = [1, 2, 4]  # exponential backoff
+
+    def __init__(self):
+        self.queue: asyncio.PriorityQueue = None
+        self.lock = asyncio.Lock()
+        self.running = False
+        self.current_job: Optional[Job] = None
+        self.handlers: Dict[str, Callable] = {}
+        self.browser = None
+        self._hud = None
+        self._register_default_handlers()
+
+    def _register_default_handlers(self):
+        self.handlers = {
+            'wait': self._handle_wait,
+            'screenshot': self._handle_screenshot,
+            'open_url': self._handle_open_url,
+            'open_app': self._handle_open_app,
+            'youtube_search': self._handle_youtube_search,
+            'youtube_click_result': self._handle_youtube_click,
+            'youtube_seek': self._handle_youtube_seek,
+            'youtube_pause': self._handle_youtube_pause,
+            'youtube_play': self._handle_youtube_play,
+            'browser_screenshot': self._handle_browser_screenshot,
+            'browser_click': self._handle_browser_click,
+            'browser_fill': self._handle_browser_fill,
+            'read_file': self._handle_read_file,
+            'edit_file': self._handle_edit_file,
+            'create_file': self._handle_create_file,
+            'run_command': self._handle_run_command,
+            'ocr_screen': self._handle_ocr_screen,
+            'find_template': self._handle_find_template,
+            'click_template': self._handle_click_template,
+        }
+
+    def register_handler(self, step_type: str, handler: Callable):
+        self.handlers[step_type] = handler
+
+    def _update_hud(self, step_num: int, total: int, desc: str, error: str = None):
+        try:
+            from ui.hud import get_hud
+            hud = get_hud()
+            hud.set_step(step_num, total, desc)
+            if error:
+                hud.set_error(error)
+        except:
+            pass
+
+    async def _take_snapshot(self, prefix: str = "snapshot"):
+        try:
+            from vision.screen_capture import capture_fullscreen
+            ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            path = os.path.join(LOG_DIR, 'snapshots', f'{prefix}_{ts}.png')
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            capture_fullscreen(path)
+            logger.info(f"Snapshot saved: {path}")
+            return path
+        except Exception as e:
+            logger.warning(f"Snapshot failed: {e}")
+            return None
+
+    async def _execute_with_retry(self, step: JobStep, handler: Callable) -> Any:
+        last_error = None
+        for attempt in range(self.MAX_RETRIES):
+            try:
+                result = await asyncio.wait_for(
+                    handler(step.params),
+                    timeout=self.STEP_TIMEOUT
+                )
+                return result
+            except asyncio.TimeoutError:
+                last_error = f"Step timed out after {self.STEP_TIMEOUT}s"
+                logger.warning(f"Step {step.type} timeout (attempt {attempt+1})")
+            except Exception as e:
+                last_error = str(e)
+                logger.warning(f"Step {step.type} error (attempt {attempt+1}): {e}")
+            
+            step.retries = attempt + 1
+            if attempt < self.MAX_RETRIES - 1:
+                backoff = self.RETRY_BACKOFF[min(attempt, len(self.RETRY_BACKOFF)-1)]
+                await asyncio.sleep(backoff)
+                await self._take_snapshot(f"retry_{step.type}")
+        
+        raise RuntimeError(last_error or "Step failed after retries")
+
+    async def execute_job(self, job: Job, on_step_complete: Callable = None) -> bool:
+        async with self.lock:
+            self.current_job = job
+            job.status = StepStatus.RUNNING
+            job.started_at = time.time()
+
+            logger.info(f"Starting job {job.id}: {job.description}")
+            action_logger.info(f"JOB_START: {job.description}")
+            print(f"[Executor] Starting: {job.description}")
+
+            await self._take_snapshot("job_start")
+
+            success = True
+            for i, step in enumerate(job.steps):
+                step.status = StepStatus.RUNNING
+                step.started_at = time.time()
+                self._update_hud(i+1, len(job.steps), step.type)
+
+                try:
+                    handler = self.handlers.get(step.type)
+                    if handler:
+                        print(f"[Executor] Step {i+1}/{len(job.steps)}: {step.type}")
+                        action_logger.info(f"STEP: {step.type} {json.dumps(step.params)}")
+                        result = await self._execute_with_retry(step, handler)
+                        step.result = result
+                        step.status = StepStatus.COMPLETED
+                        action_logger.info(f"STEP_OK: {step.type}")
+                    else:
+                        print(f"[Executor] Unknown step: {step.type}")
+                        step.status = StepStatus.SKIPPED
+                        step.error = f"Unknown: {step.type}"
+                except Exception as e:
+                    step.status = StepStatus.FAILED
+                    step.error = str(e)
+                    logger.error(f"Step {step.type} failed: {e}")
+                    action_logger.info(f"STEP_FAIL: {step.type} - {e}")
+                    print(f"[Executor] Failed: {e}")
+                    self._update_hud(i+1, len(job.steps), step.type, str(e))
+                    await self._take_snapshot(f"fail_{step.type}")
+                    success = False
+                finally:
+                    step.completed_at = time.time()
+
+                if on_step_complete:
+                    on_step_complete(i, step)
+
+                if step.status == StepStatus.FAILED and step.type != 'wait':
+                    break
+
+            job.status = StepStatus.COMPLETED if success else StepStatus.FAILED
+            job.completed_at = time.time()
+
+            duration = job.completed_at - job.started_at
+            logger.info(f"Job {job.id} {'completed' if success else 'failed'} in {duration:.1f}s")
+            action_logger.info(f"JOB_END: {'OK' if success else 'FAIL'} in {duration:.1f}s")
+            print(f"[Executor] {'Completed' if success else 'Failed'} in {duration:.1f}s")
+
+            self._update_hud(0, 0, "")
+
+            if self.browser:
+                try:
+                    await self.browser.stop()
+                except:
+                    pass
+                self.browser = None
+
+            self.current_job = None
+            return success
+
+    async def _ensure_browser(self):
+        if self.browser is None:
+            from automation.browser import BrowserAutomation
+            self.browser = BrowserAutomation(headless=False)
+            await self.browser.start()
+        return self.browser
+
+    # --- Step Handlers ---
+    async def _handle_wait(self, params: Dict) -> bool:
+        await asyncio.sleep(params.get('seconds', 1))
+        return True
+
+    async def _handle_screenshot(self, params: Dict) -> str:
+        from vision.screen_capture import capture_fullscreen
+        save_path = params.get('save', f'logs/snapshots/screen_{int(time.time())}.png')
+        os.makedirs(os.path.dirname(save_path), exist_ok=True)
+        capture_fullscreen(save_path)
+        return save_path
+
+    async def _handle_open_url(self, params: Dict) -> bool:
+        browser = await self._ensure_browser()
+        await browser.goto(params.get('url', 'https://google.com'))
+        return True
+
+    async def _handle_open_app(self, params: Dict) -> bool:
+        import subprocess
+        subprocess.Popen(params.get('name', ''), shell=True)
+        return True
+
+    async def _handle_youtube_search(self, params: Dict) -> int:
+        browser = await self._ensure_browser()
+        return await browser.youtube_search(params.get('query', ''))
+
+    async def _handle_youtube_click(self, params: Dict) -> bool:
+        if not self.browser:
+            raise RuntimeError("Browser not started")
+        await self.browser.youtube_click_result(params.get('n', 1))
+        return True
+
+    async def _handle_youtube_seek(self, params: Dict) -> bool:
+        if not self.browser:
+            raise RuntimeError("Browser not started")
+        await self.browser.youtube_seek_to(params.get('seconds', 0))
+        return True
+
+    async def _handle_youtube_pause(self, params: Dict) -> bool:
+        if not self.browser:
+            raise RuntimeError("Browser not started")
+        await self.browser.youtube_pause()
+        return True
+
+    async def _handle_youtube_play(self, params: Dict) -> bool:
+        if not self.browser:
+            raise RuntimeError("Browser not started")
+        await self.browser.youtube_play()
+        return True
+
+    async def _handle_browser_screenshot(self, params: Dict) -> str:
+        if not self.browser:
+            raise RuntimeError("Browser not started")
+        save_path = params.get('save', f'logs/snapshots/browser_{int(time.time())}.png')
+        os.makedirs(os.path.dirname(save_path), exist_ok=True)
+        await self.browser.screenshot(save_path)
+        return save_path
+
+    async def _handle_browser_click(self, params: Dict) -> bool:
+        if not self.browser:
+            raise RuntimeError("Browser not started")
+        await self.browser.click(params.get('selector', ''))
+        return True
+
+    async def _handle_browser_fill(self, params: Dict) -> bool:
+        if not self.browser:
+            raise RuntimeError("Browser not started")
+        await self.browser.fill_input(params.get('selector', ''), params.get('text', ''))
+        return True
+
+    async def _handle_read_file(self, params: Dict) -> str:
+        from automation.editor import FileEditor
+        return FileEditor().read_file(params.get('path', '')) or ""
+
+    async def _handle_edit_file(self, params: Dict) -> bool:
+        path = params.get('path', '')
+        changes = params.get('changes', '')
+        logger.info(f"Edit: {path} - {changes}")
+        return True
+
+    async def _handle_create_file(self, params: Dict) -> bool:
+        from automation.editor import FileEditor
+        return FileEditor().write_file(params.get('path', ''), params.get('content', ''), backup=False)
+
+    async def _handle_run_command(self, params: Dict) -> str:
+        import subprocess
+        result = subprocess.run(params.get('command', ''), shell=True, capture_output=True, text=True, timeout=60)
+        return result.stdout + result.stderr
+
+    async def _handle_ocr_screen(self, params: Dict) -> str:
+        from vision.ocr import extract_text_from_screen
+        return extract_text_from_screen()
+
+    async def _handle_find_template(self, params: Dict) -> Dict:
+        from vision.template_match import find_template_on_screen
+        return find_template_on_screen(params.get('template', '')) or {}
+
+    async def _handle_click_template(self, params: Dict) -> bool:
+        from vision.template_match import click_template
+        return click_template(params.get('template', ''))
+
+
+def plan_preview(plan: Dict, tts_speak: Callable = None) -> str:
+    """Generate and optionally speak a plan summary."""
+    desc = plan.get('description', 'Execute task')
+    steps = plan.get('steps', [])
+    summary = f"Plan: {desc}. {len(steps)} steps."
+    if tts_speak:
+        tts_speak(summary)
+    return summary
+
+
+def run_job_sync(job: Job) -> bool:
+    executor = Executor()
+    return asyncio.run(executor.execute_job(job))
+
+
+def run_plan_sync(plan: Dict) -> bool:
+    job = Job.from_dict(plan)
+    return run_job_sync(job)

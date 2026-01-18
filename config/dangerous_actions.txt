@@ -1,0 +1,22 @@
+# Dangerous actions that ALWAYS require typed confirmation (never voice-only)
+# One action pattern per line
+
+delete
+remove
+format
+uninstall
+shutdown
+restart
+reboot
+kill
+terminate
+registry
+system32
+hosts
+firewall
+admin
+sudo
+powershell -command
+cmd /c del
+rmdir
+rd /s
