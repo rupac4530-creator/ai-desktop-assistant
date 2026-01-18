@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 Microphone Diagnostics Tool - Comprehensive audio device testing.
 Probes all audio input devices and finds a working one.
@@ -139,7 +139,7 @@ def step_3_probe_devices(device_info: dict):
                 log(f"    Frames: {frames}, RMS: {rms:.1f}")
                 
                 # Check if valid audio (frames > 0 and RMS > noise threshold)
-                if frames > 0 and rms > 50:  # Lower threshold for quiet rooms
+                if frames > 0 and rms > 5:  # Lower threshold for quiet rooms
                     result["ok"] = True
                     result["frames"] = frames
                     result["rms"] = float(rms)
@@ -152,7 +152,7 @@ def step_3_probe_devices(device_info: dict):
                             "sample_rate": sr,
                             "rms": float(rms),
                         }
-                        log(f"  ✓ Device [{idx}] works at {sr}Hz (RMS: {rms:.1f})")
+                        log(f"  âœ“ Device [{idx}] works at {sr}Hz (RMS: {rms:.1f})")
                     break
                     
             except Exception as e:
@@ -164,7 +164,7 @@ def step_3_probe_devices(device_info: dict):
         
         if not result["ok"]:
             result["error"] = "No valid audio captured at any sample rate"
-            log(f"  ✗ Device [{idx}] failed")
+            log(f"  âœ— Device [{idx}] failed")
         
         probe_results.append(result)
         
@@ -199,8 +199,8 @@ def step_4_fallback_attempts():
                 rec = sd.rec(int(1.5 * config["samplerate"]), **config)
                 sd.wait()
                 rms = np.sqrt(np.mean(rec.astype(np.float32) ** 2))
-                if rms > 50:
-                    log(f"  ✓ Fallback worked: RMS={rms:.1f}")
+                if rms > 5:
+                    log(f"  âœ“ Fallback worked: RMS={rms:.1f}")
                     return {"ok": True, "config": config, "rms": float(rms)}
             except Exception as e:
                 log(f"    Failed: {e}")
@@ -337,7 +337,7 @@ def step_7_test_capture():
         log(f"  Saved {wav_path} ({len(recording)} frames, RMS: {rms:.1f})")
         
         return {
-            "ok": rms > 50,
+            "ok": rms > 5,
             "frames": len(recording),
             "rms": float(rms),
             "wav_path": str(wav_path),
@@ -455,3 +455,4 @@ if __name__ == "__main__":
     result = run_full_diagnostics()
     print("\n" + "=" * 60)
     print("RESULT:", json.dumps(result, indent=2))
+
