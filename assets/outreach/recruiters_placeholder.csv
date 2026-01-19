@@ -1,0 +1,38 @@
+company,contact_name,contact_title,contact_email,contact_linkedin,source,notes
+Google,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/google/people,careers_page,Find on LinkedIn People tab
+Microsoft,Hiring Manager,Talent Acquisition,,https://linkedin.com/company/microsoft/people,careers_page,Search for "recruiter" in people
+Meta,Hiring Manager,Technical Sourcer,,https://linkedin.com/company/meta/people,careers_page,AI team recruiters
+Amazon,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/amazon/people,careers_page,AWS team focus
+OpenAI,Hiring Manager,Recruiter,,https://linkedin.com/company/openai/people,careers_page,Small team - direct contact
+NVIDIA,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/nvidia/people,careers_page,AI Platform team
+Apple,Hiring Manager,Talent Partner,,https://linkedin.com/company/apple/people,careers_page,Siri/ML team
+Salesforce,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/salesforce/people,careers_page,Einstein AI team
+Adobe,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/adobe/people,careers_page,Sensei team
+Databricks,Hiring Manager,Recruiter,,https://linkedin.com/company/databricks/people,careers_page,Platform engineering
+Palantir,Hiring Manager,Recruiter,,https://linkedin.com/company/palantir-technologies/people,careers_page,Forward deployed engineers
+GitHub,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/github/people,careers_page,Copilot team
+Hugging Face,Hiring Manager,Recruiter,,https://linkedin.com/company/huggingface/people,careers_page,Open source ML
+Stripe,Hiring Manager,Engineering Recruiter,,https://linkedin.com/company/stripe/people,careers_page,Developer tools
+Anthropic,Hiring Manager,Recruiter,,https://linkedin.com/company/anthropic/people,careers_page,AI safety research
+Careem,Hiring Manager,Talent Acquisition,,https://linkedin.com/company/careem/people,careers_page,Engineering team Dubai
+Noon,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/noon/people,careers_page,Tech platform Dubai
+Emirates Group,Hiring Manager,IT Recruiter,,https://linkedin.com/company/emirates/people,careers_page,Innovation team
+Etisalat,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/etisalat/people,careers_page,Digital services
+Dubai Future Foundation,Hiring Manager,Talent Team,,https://linkedin.com/company/dubai-future-foundation/people,careers_page,Innovation hub
+G42,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/g42ai/people,careers_page,AI Cloud Abu Dhabi
+Mubadala Technology,Hiring Manager,Talent Partner,,https://linkedin.com/company/mubadala/people,careers_page,Tech investments
+Amazon MENA,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/amazon/people,careers_page,MENA region
+Microsoft Gulf,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/microsoft/people,careers_page,Gulf region
+Accenture Middle East,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/accenture/people,careers_page,ME consulting
+Grab,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/grabapp/people,careers_page,Engineering Singapore
+Sea Group,Hiring Manager,Talent Acquisition,,https://linkedin.com/company/sea/people,careers_page,Shopee/Garena
+DBS Bank,Hiring Manager,Technology Recruiter,,https://linkedin.com/company/dbs-bank/people,careers_page,Digital banking
+GovTech Singapore,Hiring Manager,Talent Partner,,https://linkedin.com/company/govtech-singapore/people,careers_page,Government tech
+Google Singapore,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/google/people,careers_page,APAC hub
+Microsoft Singapore,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/microsoft/people,careers_page,APAC development
+AWS Singapore,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/amazon-web-services/people,careers_page,Cloud APAC
+Lazada,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/lazada/people,careers_page,E-commerce tech
+Razer,Hiring Manager,Talent Acquisition,,https://linkedin.com/company/razer/people,careers_page,Gaming tech
+Carousell,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/carousell/people,careers_page,Marketplace platform
+Singtel,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/singtel/people,careers_page,Telecom digital
+ByteDance Singapore,Hiring Manager,Technical Recruiter,,https://linkedin.com/company/bytedance/people,careers_page,TikTok APAC

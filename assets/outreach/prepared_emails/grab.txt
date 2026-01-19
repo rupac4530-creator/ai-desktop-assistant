@@ -1,0 +1,36 @@
+To: [Recruiter Email]
+Company: Grab
+Subject: Open-Source AI Desktop Assistant — Demo from Bedanta Chatterjee
+
+---
+
+Hi,
+
+I'm Bedanta Chatterjee — maintainer of AI Desktop Assistant, an open-source voice-controlled desktop automation tool.
+
+🔗 GitHub: https://github.com/rupac4530-creator/ai-desktop-assistant
+📦 Release: https://github.com/rupac4530-creator/ai-desktop-assistant/releases/tag/v1.0.1
+
+**What it does:**
+• Offline-first desktop assistant (voice input → LLM → automation)
+• Local LLM support via Ollama — no cloud required
+• Self-healing system with Git-backed error recovery
+• GPU-accelerated speech recognition (Whisper/faster-whisper)
+
+**Why this matters for Grab:**
+As Southeast Asia's leading super app, Grab handles complex multi-service orchestration. This project demonstrates self-healing automation patterns and resilient system design — relevant to your platform engineering and internal tooling teams.
+
+**Ask:**
+Would you be open to a 20-minute live demo? I can show how the assistant:
+- Orchestrates multi-step automation reliably
+- Recovers from errors automatically
+- Runs voice interfaces with low latency
+
+I'm based in India (same timezone region) and happy to schedule a convenient call.
+
+Best regards,
+Bedanta Chatterjee
+📧 rupac4530@gmail.com
+📱 +91 8617513035
+🐙 github.com/rupac4530-creator
+🌍 India

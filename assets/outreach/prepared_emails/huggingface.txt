@@ -1,0 +1,28 @@
+To: [Recruiter Email]
+Company: Hugging Face
+Subject: Open-Source AI Desktop Assistant — Demo from Bedanta Chatterjee
+
+---
+
+Hi,
+
+I'm Bedanta Chatterjee — maintainer of AI Desktop Assistant, an open-source voice-controlled desktop automation tool.
+
+🔗 GitHub: https://github.com/rupac4530-creator/ai-desktop-assistant
+📦 Release: https://github.com/rupac4530-creator/ai-desktop-assistant/releases/tag/v1.0.1
+
+**What it does:**
+• Offline-first desktop assistant (voice input → LLM → automation)
+• Uses faster-whisper for GPU-accelerated speech recognition
+• Local LLM support via Ollama — works with HuggingFace models
+• Self-healing system with Git-backed error recovery
+
+**Why this matters for Hugging Face:**
+This project showcases practical deployment of open-source ML models (Whisper, Mistral, LLaMA) in a desktop application. It demonstrates the real-world value of the open-source ML ecosystem — perfectly aligned with HuggingFace's mission.
+
+**Ask:**
+Would you be open to a 20-minute live demo? I'd love to show how open-source models power this entire application and discuss potential integrations.
+
+Best regards,
+Bedanta Chatterjee
+📧 rupac4530@gmail.com | 📱 +91 8617513035 | 🌍 India

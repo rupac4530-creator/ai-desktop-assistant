@@ -1,0 +1,28 @@
+To: [Recruiter Email]
+Company: Meta
+Subject: Open-Source AI Desktop Assistant — Demo from Bedanta Chatterjee
+
+---
+
+Hi,
+
+I'm Bedanta Chatterjee — maintainer of AI Desktop Assistant, an open-source voice-controlled desktop automation tool.
+
+🔗 GitHub: https://github.com/rupac4530-creator/ai-desktop-assistant
+📦 Release: https://github.com/rupac4530-creator/ai-desktop-assistant/releases/tag/v1.0.1
+
+**What it does:**
+• Offline-first desktop assistant (voice input → LLM → automation)
+• Local LLM support via Ollama (works with LLaMA models)
+• Self-healing system with Git-backed error recovery
+• GPU-accelerated speech recognition (Whisper/faster-whisper)
+
+**Why this matters for Meta:**
+This project uses LLaMA-compatible models and demonstrates practical on-device AI deployment. The privacy-first architecture aligns with Meta's focus on on-device AI and could interest the AI Research and Reality Labs teams.
+
+**Ask:**
+Would you be open to a 20-minute live demo? I can show how the assistant runs LLaMA models locally with voice control and self-healing automation.
+
+Best regards,
+Bedanta Chatterjee
+📧 rupac4530@gmail.com | 📱 +91 8617513035 | 🌍 India

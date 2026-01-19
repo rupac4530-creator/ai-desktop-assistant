@@ -1,0 +1,38 @@
+company,country,region,website,careers_url,linkedin_company,contact_type,notes
+Google,USA,North America,https://google.com,https://careers.google.com,https://linkedin.com/company/google,careers_page,AI/ML and Developer Tools teams
+Microsoft,USA,North America,https://microsoft.com,https://careers.microsoft.com,https://linkedin.com/company/microsoft,careers_page,Azure AI and GitHub teams
+Meta,USA,North America,https://meta.com,https://metacareers.com,https://linkedin.com/company/meta,careers_page,AI Research and Platform teams
+Amazon,USA,North America,https://amazon.com,https://amazon.jobs,https://linkedin.com/company/amazon,careers_page,AWS and Alexa teams
+OpenAI,USA,North America,https://openai.com,https://openai.com/careers,https://linkedin.com/company/openai,careers_page,Research and Engineering
+NVIDIA,USA,North America,https://nvidia.com,https://nvidia.com/careers,https://linkedin.com/company/nvidia,careers_page,AI Platform and Developer Tools
+Apple,USA,North America,https://apple.com,https://jobs.apple.com,https://linkedin.com/company/apple,careers_page,Siri and ML teams
+Salesforce,USA,North America,https://salesforce.com,https://salesforce.com/company/careers,https://linkedin.com/company/salesforce,careers_page,Einstein AI team
+Adobe,USA,North America,https://adobe.com,https://adobe.com/careers,https://linkedin.com/company/adobe,careers_page,Sensei AI team
+Databricks,USA,North America,https://databricks.com,https://databricks.com/careers,https://linkedin.com/company/databricks,careers_page,Data and AI platform
+Palantir,USA,North America,https://palantir.com,https://palantir.com/careers,https://linkedin.com/company/palantir-technologies,careers_page,Platform engineering
+GitHub,USA,North America,https://github.com,https://github.com/about/careers,https://linkedin.com/company/github,careers_page,Copilot and Developer Tools
+Hugging Face,USA,North America,https://huggingface.co,https://huggingface.co/jobs,https://linkedin.com/company/huggingface,careers_page,Open-source ML platform
+Stripe,USA,North America,https://stripe.com,https://stripe.com/jobs,https://linkedin.com/company/stripe,careers_page,Developer tools and API
+Anthropic,USA,North America,https://anthropic.com,https://anthropic.com/careers,https://linkedin.com/company/anthropic,careers_page,AI Safety research
+Careem,Dubai,Middle East,https://careem.com,https://careem.com/careers,https://linkedin.com/company/careem,careers_page,Super app platform (Uber subsidiary)
+Noon,Dubai,Middle East,https://noon.com,https://noon.com/careers,https://linkedin.com/company/noon,careers_page,E-commerce tech platform
+Emirates Group,Dubai,Middle East,https://emirates.com,https://emiratesgroupcareers.com,https://linkedin.com/company/emirates,careers_page,Aviation IT and Innovation
+Etisalat,Dubai,Middle East,https://etisalat.ae,https://etisalat.ae/careers,https://linkedin.com/company/etisalat,careers_page,Telecom and Digital Services
+Dubai Future Foundation,Dubai,Middle East,https://dubaifuture.gov.ae,https://dubaifuture.gov.ae/careers,https://linkedin.com/company/dubai-future-foundation,careers_page,Government innovation hub
+G42,Dubai,Middle East,https://g42.ai,https://g42.ai/careers,https://linkedin.com/company/g42ai,careers_page,AI and Cloud (Abu Dhabi)
+Mubadala Technology,Dubai,Middle East,https://mubadala.com,https://mubadala.com/careers,https://linkedin.com/company/mubadala,careers_page,Tech investments (Abu Dhabi)
+Amazon MENA,Dubai,Middle East,https://amazon.ae,https://amazon.jobs/locations/middle-east,https://linkedin.com/company/amazon,careers_page,AWS and retail MENA region
+Microsoft Gulf,Dubai,Middle East,https://microsoft.com/en-ae,https://careers.microsoft.com,https://linkedin.com/company/microsoft,careers_page,Azure MENA region
+Accenture Middle East,Dubai,Middle East,https://accenture.com/ae-en,https://accenture.com/ae-en/careers,https://linkedin.com/company/accenture,careers_page,Consulting and Tech services
+Grab,Singapore,Southeast Asia,https://grab.com,https://grab.careers,https://linkedin.com/company/grabapp,careers_page,Super app platform
+Sea Group,Singapore,Southeast Asia,https://sea.com,https://sea.com/careers,https://linkedin.com/company/sea,careers_page,Shopee/Garena parent company
+DBS Bank,Singapore,Southeast Asia,https://dbs.com,https://dbs.com/careers,https://linkedin.com/company/dbs-bank,careers_page,Digital banking and fintech
+GovTech Singapore,Singapore,Southeast Asia,https://tech.gov.sg,https://tech.gov.sg/careers,https://linkedin.com/company/govtech-singapore,careers_page,Government tech agency
+Google Singapore,Singapore,Southeast Asia,https://google.com.sg,https://careers.google.com,https://linkedin.com/company/google,careers_page,APAC engineering hub
+Microsoft Singapore,Singapore,Southeast Asia,https://microsoft.com/en-sg,https://careers.microsoft.com,https://linkedin.com/company/microsoft,careers_page,APAC development center
+AWS Singapore,Singapore,Southeast Asia,https://aws.amazon.com,https://amazon.jobs/locations/singapore,https://linkedin.com/company/amazon-web-services,careers_page,Cloud services APAC
+Lazada,Singapore,Southeast Asia,https://lazada.com,https://lazada.com/careers,https://linkedin.com/company/lazada,careers_page,E-commerce (Alibaba subsidiary)
+Razer,Singapore,Southeast Asia,https://razer.com,https://razer.com/careers,https://linkedin.com/company/razer,careers_page,Gaming hardware and software
+Carousell,Singapore,Southeast Asia,https://carousell.com,https://careers.carousell.com,https://linkedin.com/company/carousell,careers_page,Marketplace platform
+Singtel,Singapore,Southeast Asia,https://singtel.com,https://singtel.com/careers,https://linkedin.com/company/singtel,careers_page,Telecom and digital services
+ByteDance Singapore,Singapore,Southeast Asia,https://bytedance.com,https://jobs.bytedance.com,https://linkedin.com/company/bytedance,careers_page,TikTok parent APAC hub

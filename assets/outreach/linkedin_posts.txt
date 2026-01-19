@@ -1,0 +1,96 @@
+# LinkedIn Posts for Outreach
+
+## POST 1: Short Teaser (Use for initial visibility)
+
+🚀 Just released AI Desktop Assistant v1.0.1 — a voice-controlled AI that runs 100% locally!
+
+🔒 No cloud • 🎤 Whisper STT • 🤖 Local LLM • 🔧 Self-healing
+
+GitHub: https://github.com/rupac4530-creator/ai-desktop-assistant
+
+Looking to connect with engineers and recruiters at Google, Microsoft, OpenAI, NVIDIA, and other AI-focused companies. DM me for a demo!
+
+#AI #OpenSource #Python #VoiceAssistant #Privacy #Hiring #OpenToWork
+
+---
+
+## POST 2: Medium Announcement (Best for engagement)
+
+🎙️ I built something I'm really proud of: AI Desktop Assistant v1.0.1
+
+After months of development, I'm excited to share my open-source voice-controlled AI assistant that runs 100% locally on your machine.
+
+🔑 Key Features:
+• Voice control via Whisper (GPU-accelerated)
+• Local LLM integration — no API keys, no cloud
+• Self-healing system that auto-repairs errors
+• Complete privacy — zero data leaves your machine
+
+💻 Tech Stack: Python • faster-whisper • Ollama • CUDA • pyttsx3
+
+📦 Try it: https://github.com/rupac4530-creator/ai-desktop-assistant
+
+I'm actively looking for opportunities at companies working on:
+🔹 AI/ML platforms
+🔹 Developer tools
+🔹 Voice interfaces
+🔹 Desktop automation
+
+If you're hiring or know someone who is, I'd love to connect!
+
+#AI #MachineLearning #OpenSource #Python #VoiceAssistant #OpenToWork
+
+---
+
+## POST 3: Detailed Technical Post (For developer audience)
+
+🚀 Announcing: AI Desktop Assistant v1.0.1
+
+I've spent months building an open-source voice-controlled AI assistant that runs 100% offline.
+
+**The Problem:**
+Existing voice assistants require cloud connections, send your data to servers, and break without self-recovery.
+
+**My Solution:**
+✅ 100% offline operation
+✅ Local LLM (Ollama/Mistral/LLaMA)
+✅ Whisper for speech recognition
+✅ Self-healing with Git rollback
+✅ Desktop automation (browser, apps)
+
+**Architecture:**
+```
+Voice → Whisper (GPU) → LLM (Ollama) → Action
+                ↓
+        Self-Healing Watchdog
+                ↓
+        Git-Backed Rollback
+```
+
+**GitHub:** https://github.com/rupac4530-creator/ai-desktop-assistant
+
+I'm looking for opportunities in AI/ML, developer tools, or platform engineering. Companies I'd love to work with:
+• USA: Google, Microsoft, OpenAI, NVIDIA, GitHub
+• Singapore: Grab, GovTech, Sea Group
+• Dubai: G42, Careem, Dubai Future Foundation
+
+DM me or email: rupac4530@gmail.com
+
+#AI #Python #OpenSource #Whisper #Ollama #OpenToWork #Hiring
+
+---
+
+## POSTING SCHEDULE
+
+| Day | Time (IST) | Post | Target Audience |
+|-----|------------|------|-----------------|
+| Tuesday | 10:00 AM | Short teaser | General visibility |
+| Thursday | 2:00 PM | Medium announcement | Engagement |
+| Saturday | 11:00 AM | Technical deep-dive | Developers |
+
+## ENGAGEMENT TIPS
+
+1. Reply to every comment within 1 hour
+2. Tag 2-3 relevant connections (sparingly)
+3. Share in LinkedIn groups: Python Developers, AI/ML Engineers
+4. After posting, visit target company pages and connect with recruiters

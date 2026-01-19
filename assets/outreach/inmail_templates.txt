@@ -1,0 +1,116 @@
+# LinkedIn InMail & Connection Request Templates
+
+## CONNECTION REQUEST (300 chars max)
+
+### Template 1: Direct
+Hi {Name} — I'm Bedanta, maintainer of an open-source AI Desktop Assistant (voice + local LLM + automation). I'd love to connect and share a quick demo if you're interested in AI tooling.
+
+### Template 2: Referral Ask
+Hi {Name} — I built an open-source AI assistant that runs 100% locally (Whisper + Ollama). Looking to connect with {Company}'s AI/platform teams. Would you be open to a quick chat?
+
+### Template 3: Soft
+Hi {Name} — Saw you work at {Company} on {role/team}. I'm building open-source AI tools and would love to connect with folks in the space. Happy to share my project if interested!
+
+---
+
+## INMAIL TEMPLATES (After connection accepted or with Premium)
+
+### Template 1: Full Pitch
+
+Subject: Open-Source AI Desktop Assistant — Quick Demo?
+
+Hi {Name},
+
+I'm Bedanta Chatterjee, maintainer of AI Desktop Assistant — an open-source voice-controlled desktop assistant that runs 100% locally.
+
+**Quick summary:**
+• Voice control via Whisper (GPU-accelerated)
+• Local LLM (Ollama/Mistral) — no cloud required
+• Self-healing system with Git-backed rollback
+• Desktop automation (browser, apps)
+
+**GitHub:** https://github.com/rupac4530-creator/ai-desktop-assistant
+
+I think this could be relevant to {Company}'s work on {AI/developer tools/platform}. Would you be open to a 15-20 minute demo call next week?
+
+If easier, I can send a 90-second video walkthrough first.
+
+Thanks,
+Bedanta
+rupac4530@gmail.com | +91 8617513035
+
+---
+
+### Template 2: Short & Casual
+
+Hi {Name},
+
+I built an open-source AI desktop assistant that runs completely offline (voice + LLM + automation). Thought it might interest you given your work at {Company}.
+
+Here's the repo: https://github.com/rupac4530-creator/ai-desktop-assistant
+
+Would love to chat if you're curious — happy to do a quick demo!
+
+Cheers,
+Bedanta
+
+---
+
+### Template 3: Follow-up (If no response after 7 days)
+
+Hi {Name},
+
+Just following up on my previous message about the AI Desktop Assistant project. I know you're busy — if it's not relevant, no worries at all!
+
+If you'd prefer a quick overview, here's a 90-second demo: [YOUTUBE_LINK]
+
+Happy to connect whenever works for you.
+
+Best,
+Bedanta
+
+---
+
+## RECRUITER-SPECIFIC MESSAGES
+
+### For Technical Recruiters
+
+Hi {Name},
+
+I'm actively looking for AI/ML or developer tools roles. I recently released an open-source project that demonstrates:
+
+• Real-time speech recognition (Whisper/CUDA)
+• Local LLM integration (Ollama)
+• Self-healing automation architecture
+
+GitHub: https://github.com/rupac4530-creator/ai-desktop-assistant
+
+Would love to chat if {Company} has relevant openings!
+
+Bedanta Chatterjee
+rupac4530@gmail.com | +91 8617513035
+
+---
+
+### For Engineering Managers
+
+Hi {Name},
+
+I saw you lead {team} at {Company}. I built an open-source AI desktop assistant that might interest your team — it combines voice interfaces, local LLM, and self-healing automation.
+
+Would you have 15 minutes for a quick demo? Happy to share technical details.
+
+GitHub: https://github.com/rupac4530-creator/ai-desktop-assistant
+
+Best,
+Bedanta
+
+---
+
+## USAGE TIPS
+
+1. **Personalize every message** — mention something specific about them or their company
+2. **Don't mass-send** — LinkedIn flags spam; send 5-10 requests per day max
+3. **Wait 3-5 days** before following up on connection requests
+4. **If rejected**, don't re-request; move on
+5. **Track in spreadsheet** — who you messaged, when, response status
