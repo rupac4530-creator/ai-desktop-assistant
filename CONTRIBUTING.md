@@ -1,14 +1,14 @@
-# Contributing to AI Desktop Assistant
+﻿# Contributing to AI Desktop Assistant
 
 Thank you for your interest in contributing! This document provides guidelines for contributing to the project.
 
 ---
 
-## 🤝 How to Contribute
+## ðŸ¤ How to Contribute
 
 ### Reporting Bugs
 
-1. Check [existing issues](https://github.com/yourusername/ai-desktop-assistant/issues) first
+1. Check [existing issues](https://github.com/rupac4530-creator/ai-desktop-assistant/issues) first
 2. Create a new issue with:
    - Clear, descriptive title
    - Steps to reproduce
@@ -34,7 +34,7 @@ Thank you for your interest in contributing! This document provides guidelines f
 
 ---
 
-## 📝 Commit Message Format
+## ðŸ“ Commit Message Format
 
 Use semantic commit messages:
 
@@ -70,7 +70,7 @@ test(core): add watchdog unit tests
 
 ---
 
-## 🧪 Testing
+## ðŸ§ª Testing
 
 ### Running Tests
 
@@ -97,7 +97,7 @@ pytest --cov=core --cov-report=html
 
 ---
 
-## 🎨 Code Style
+## ðŸŽ¨ Code Style
 
 ### Python Style Guide
 
@@ -133,24 +133,24 @@ pre-commit install
 
 ---
 
-## 📁 Project Structure
+## ðŸ“ Project Structure
 
 When adding new features:
 
 ```
-core/           → Main application logic
-speech/         → Voice I/O (ASR, TTS)
-brain/          → AI/LLM integration
-avatar/         → Visual representation
-automation/     → Desktop control
-ui/             → User interface
-tools/          → Utilities and tests
-config/         → Configuration
+core/           â†’ Main application logic
+speech/         â†’ Voice I/O (ASR, TTS)
+brain/          â†’ AI/LLM integration
+avatar/         â†’ Visual representation
+automation/     â†’ Desktop control
+ui/             â†’ User interface
+tools/          â†’ Utilities and tests
+config/         â†’ Configuration
 ```
 
 ---
 
-## 🔀 Pull Request Process
+## ðŸ”€ Pull Request Process
 
 1. Ensure all tests pass
 2. Update documentation if needed
@@ -170,7 +170,7 @@ config/         → Configuration
 
 ---
 
-## 🏷️ Issue Labels
+## ðŸ·ï¸ Issue Labels
 
 | Label | Description |
 |-------|-------------|
@@ -184,20 +184,21 @@ config/         → Configuration
 
 ---
 
-## 💬 Communication
+## ðŸ’¬ Communication
 
 - **GitHub Issues**: Bug reports and feature requests
 - **GitHub Discussions**: General questions and ideas
-- **Email**: [contact@example.com]
+- **Email**: rupac4530@gmail.com
 
 ---
 
-## 📜 License
+## ðŸ“œ License
 
 By contributing, you agree that your contributions will be licensed under the MIT License.
 
 ---
 
-## 🙏 Thank You!
+## ðŸ™ Thank You!
 
 Every contribution helps make this project better. Thank you for taking the time to contribute!
+

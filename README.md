@@ -1,16 +1,10 @@
-﻿Author: Bedanta Chatterjee
-GitHub: https://github.com/rupac4530-creator/ai-desktop-assistant.git
-Release: v1.0.1
-
-Author: Bedanta Chatterjee
-GitHub: https://github.com/rupac4530-creator/ai-desktop-assistant.git
-Release: v1.0.1
-
-#  AI Desktop Assistant
+﻿#  AI Desktop Assistant
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![CUDA](https://img.shields.io/badge/CUDA-Enabled-green.svg)](https://developer.nvidia.com/cuda-toolkit)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Open Source](https://img.shields.io/badge/Open%20Source--red.svg)](#-philosophy)
 
 **A fully autonomous, voice-controlled AI desktop assistant with self-healing capabilities, powered by local LLMs.**
 
@@ -20,11 +14,22 @@ Release: v1.0.1
 
 ---
 
+##  Why This Project?
+
+This project was born from a simple idea: **AI assistants should work for you, not spy on you.**
+
+- **Offline-first**: Works without internet after initial setup
+- **Self-healing**: Automatically fixes its own bugs using Git-backed repair
+- **Extensible**: Modular architecture — add your own tools, voices, or LLMs
+- **Transparent**: Every action is logged, every change is reversible
+
+---
+
 ##  Key Features
 
 ###  Voice Interface
 - **Real-time speech recognition** via Whisper (GPU-accelerated)
-- **Natural text-to-speech** with Piper voices
+- **Natural text-to-speech** with local voices
 - Push-to-talk with configurable hotkeys
 - Silence detection and voice activity detection
 
@@ -55,7 +60,7 @@ Release: v1.0.1
 
 ##  Quick Start
 
-```ash
+```bash
 # 1. Clone the repository
 git clone https://github.com/rupac4530-creator/ai-desktop-assistant.git
 cd ai-desktop-assistant
@@ -119,21 +124,91 @@ This assistant has **full system access**. Safety measures include:
 
 ---
 
+##  Roadmap
+
+We're building this in the open. Here's what's planned:
+
+###  Version 1.1 (Next)
+- [ ] Linux support (Ubuntu/Debian)
+- [ ] Improved noise cancellation
+- [ ] Plugin system for custom tools
+- [ ] Better error messages
+
+###  Version 1.2
+- [ ] macOS support
+- [ ] Multi-language voice recognition
+- [ ] Custom wake words
+- [ ] Web UI dashboard
+
+###  Future Ideas
+- [ ] Mobile companion app
+- [ ] Smart home integration
+- [ ] Calendar/email integration (local)
+- [ ] Code completion assistance
+
+**Have an idea?** [Open a feature request](https://github.com/rupac4530-creator/ai-desktop-assistant/issues/new?template=feature_request.md)!
+
+---
+
+##  Contributing
+
+**This is a community project. All contributions are welcome!**
+
+Whether you're fixing a typo, adding a feature, or improving documentation — every contribution helps.
+
+### Quick Links
+-  [Contributing Guide](CONTRIBUTING.md)
+-  [Report a Bug](https://github.com/rupac4530-creator/ai-desktop-assistant/issues/new?template=bug_report.md)
+-  [Request a Feature](https://github.com/rupac4530-creator/ai-desktop-assistant/issues/new?template=feature_request.md)
+-  [Good First Issues](https://github.com/rupac4530-creator/ai-desktop-assistant/labels/good%20first%20issue)
+
+### How to Contribute
+
+```bash
+# 1. Fork the repo
+# 2. Clone your fork
+git clone https://github.com/YOUR_USERNAME/ai-desktop-assistant.git
+
+# 3. Create a branch
+git checkout -b feature/amazing-feature
+
+# 4. Make changes and commit
+git commit -m "feat: add amazing feature"
+
+# 5. Push and open a PR
+git push origin feature/amazing-feature
+```
+
+---
+
+##  Philosophy
+
+This project follows these principles:
+
+1. **Privacy by Default** — Your data stays on your machine
+2. **Offline First** — Core features work without internet
+3. **Transparent AI** — Every action is logged and reversible
+4. **Community Driven** — Built by users, for users
+5. **Beginner Friendly** — Good documentation, clear code
+
+We believe AI should **empower** users, not exploit them.
+
+---
+
 ##  Project Structure
 
 ```
 ai_desktop_assistant/
- main.py              # Entry point
  core/                # Core engine and state
-    engine.py        # Main orchestrator
+    main_controller.py
     repair_engine.py # Self-healing system
-    state.json       # Persistent state
+    watchdog.py      # Health monitoring
  speech/              # Voice I/O
     asr.py           # Speech-to-text
-    tts.py           # Text-to-speech
- llm/                 # LLM integrations
-    ollama_client.py # Ollama API client
- tools/               # System tools and utilities
+    local_tts.py     # Text-to-speech
+ brain/               # AI/LLM integration
+ automation/          # Desktop control
+ tools/               # Utilities and tests
  logs/                # Runtime logs
 ```
 
@@ -166,15 +241,11 @@ ai_desktop_assistant/
 
 ---
 
-##  Contributing
-
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
----
-
 ##  License
 
-This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
+This project is licensed under the **MIT License** — see [LICENSE](LICENSE) for details.
+
+You are free to use, modify, and distribute this software.
 
 ---
 
@@ -182,14 +253,21 @@ This project is licensed under the MIT License — see [LICENSE](LICENSE) for de
 
 - [Whisper](https://github.com/openai/whisper) — Speech recognition
 - [Ollama](https://ollama.ai/) — Local LLM runtime
-- [Piper](https://github.com/rhasspy/piper) — Text-to-speech
-- [VTube Studio](https://denchisoft.com/) — Avatar display
+- [faster-whisper](https://github.com/guillaumekln/faster-whisper) — Optimized Whisper
+- [pyttsx3](https://github.com/nateshmbhat/pyttsx3) — Text-to-speech
+
+---
+
+##  Author
+
+**Bedanta Chatterjee**
+- GitHub: [@rupac4530-creator](https://github.com/rupac4530-creator)
+- Email: rupac4530@gmail.com
 
 ---
 
 <p align="center">
-  <b>Built with  for privacy and autonomy</b>
+  <b>Built with  for privacy, autonomy, and open source</b>
+  <br><br>
+   <b>Star this repo if you find it useful!</b> 
 </p>
-
-
-
