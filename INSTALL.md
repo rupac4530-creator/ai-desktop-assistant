@@ -1,4 +1,4 @@
-# Installation Guide
+﻿# Installation Guide
 
 Complete step-by-step installation instructions for the AI Desktop Assistant.
 
@@ -14,7 +14,7 @@ Complete step-by-step installation instructions for the AI Desktop Assistant.
 
 2. **Python 3.10 or higher**
    - Download from [python.org](https://www.python.org/downloads/)
-   - ✅ Check "Add Python to PATH" during installation
+   - âœ… Check "Add Python to PATH" during installation
 
 3. **Git**
    - Download from [git-scm.com](https://git-scm.com/download/win)
@@ -158,7 +158,7 @@ python core\main_controller.py
 ### "No audio frames" Error
 
 1. Check Windows microphone permissions:
-   - Settings → Privacy → Microphone → Enable
+   - Settings â†’ Privacy â†’ Microphone â†’ Enable
 2. Run microphone diagnostics:
    ```powershell
    python tools/mic_diagnostics.py
@@ -221,3 +221,4 @@ If you encounter issues:
    - Error message
    - `logs/last_session_debug.log` contents
    - System info (Windows version, Python version, GPU)
+

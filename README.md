@@ -67,7 +67,7 @@ copy .env.example .env
 ollama pull mistral:7b-instruct
 
 # 6. Run the assistant
-python main.py
+python core\main_controller.py --tray
 ```
 
  **See [INSTALL.md](INSTALL.md) for detailed installation instructions.**
@@ -182,3 +182,4 @@ This project is licensed under the MIT License — see [LICENSE](LICENSE) for de
 <p align="center">
   <b>Built with  for privacy and autonomy</b>
 </p>
+

@@ -1,4 +1,4 @@
-@echo off
+﻿@echo off
 REM ============================================================
 REM Build AI Desktop Assistant as a standalone EXE
 REM ============================================================
@@ -48,7 +48,7 @@ pyinstaller ^
     --hidden-import=pyttsx3.drivers.sapi5 ^
     --hidden-import=sounddevice ^
     --hidden-import=numpy ^
-    main.py
+    core\main_controller.py
 
 if errorlevel 1 (
     echo.
@@ -75,3 +75,4 @@ echo   1. Navigate to dist folder
 echo   2. Run AIDesktopAssistant.exe
 echo.
 pause
+
