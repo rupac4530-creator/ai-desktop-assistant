@@ -1,0 +1,22 @@
+🎙️ I built something I'm really proud of: AI Desktop Assistant v1.0.1
+
+After months of development, I'm excited to share my open-source voice-controlled AI assistant that runs 100% locally on your machine.
+
+🔑 Key Features:
+• Voice control via Whisper (GPU-accelerated)
+• Local LLM integration — no API keys, no cloud
+• Self-healing system that auto-repairs errors
+• Complete privacy — zero data leaves your machine
+
+💻 Tech Stack:
+Python • faster-whisper • Ollama • CUDA • pyttsx3 • PyAutoGUI
+
+🛠️ What makes it different:
+Unlike Alexa or Siri, this assistant doesn't send your voice to the cloud. Everything — speech recognition, AI reasoning, and text-to-speech — happens on YOUR computer.
+
+📦 Try it now:
+https://github.com/rupac4530-creator/ai-desktop-assistant
+
+Would love your feedback! Star ⭐ if you find it useful.
+
+#AI #MachineLearning #OpenSource #Python #VoiceAssistant #Privacy #Whisper #Ollama #SoftwareEngineering #Developer

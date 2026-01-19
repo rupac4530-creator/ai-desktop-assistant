@@ -1,0 +1,75 @@
+🚀 Announcing: AI Desktop Assistant v1.0.1
+
+I've been working on this project for several months, and I'm thrilled to finally share it with the world.
+
+𝐖𝐡𝐚𝐭 𝐢𝐬 𝐢𝐭?
+A fully autonomous, voice-controlled AI desktop assistant that runs 100% locally. No cloud. No subscriptions. No data leaving your machine.
+
+𝐖𝐡𝐲 𝐈 𝐛𝐮𝐢𝐥𝐭 𝐭𝐡𝐢𝐬:
+I was frustrated with existing voice assistants that:
+❌ Require internet for basic tasks
+❌ Send your voice recordings to remote servers
+❌ Need expensive API subscriptions
+❌ Break and stay broken
+
+So I built one that:
+✅ Works completely offline
+✅ Keeps all data on your machine
+✅ Uses free, open-source models
+✅ Self-heals when something breaks
+
+𝐊𝐞𝐲 𝐅𝐞𝐚𝐭𝐮𝐫𝐞𝐬:
+
+🎤 𝐕𝐨𝐢𝐜𝐞 𝐂𝐨𝐧𝐭𝐫𝐨𝐥
+Real-time speech recognition via Whisper
+GPU-accelerated for instant transcription
+Push-to-talk with customizable hotkeys
+
+🤖 𝐋𝐨𝐜𝐚𝐥 𝐋𝐋𝐌
+Ollama integration (Mistral, LLaMA, Phi-3)
+No API keys required
+Context-aware conversations
+
+🔧 𝐒𝐞𝐥𝐟-𝐇𝐞𝐚𝐥𝐢𝐧𝐠
+Watchdog monitors system health
+Auto-repairs common errors
+Git-backed rollback for safety
+
+🔊 𝐓𝐞𝐱𝐭-𝐭𝐨-𝐒𝐩𝐞𝐞𝐜𝐡
+Natural voice responses
+Multiple voice options
+Works offline
+
+𝐓𝐞𝐜𝐡 𝐒𝐭𝐚𝐜𝐤:
+• Python 3.10+
+• faster-whisper (Whisper optimization)
+• Ollama (local LLM runtime)
+• CUDA (GPU acceleration)
+• pyttsx3 (TTS)
+• PyAutoGUI (automation)
+
+𝐒𝐲𝐬𝐭𝐞𝐦 𝐑𝐞𝐪𝐮𝐢𝐫𝐞𝐦𝐞𝐧𝐭𝐬:
+• Windows 10/11
+• NVIDIA GPU (4GB+ VRAM)
+• 8GB+ RAM
+
+𝐓𝐫𝐲 𝐢𝐭 𝐧𝐨𝐰:
+GitHub: https://github.com/rupac4530-creator/ai-desktop-assistant
+Release: https://github.com/rupac4530-creator/ai-desktop-assistant/releases/tag/v1.0.1
+
+𝐖𝐡𝐚𝐭'𝐬 𝐧𝐞𝐱𝐭?
+• Linux support (v1.1)
+• Wake word detection
+• Plugin system
+• Multi-language support
+
+I'd love to hear your feedback! Drop a comment or reach out directly.
+
+If you find this useful, please ⭐ star the repo — it helps others discover the project.
+
+—
+Bedanta Chatterjee
+📧 rupac4530@gmail.com
+🐙 github.com/rupac4530-creator
+
+#AI #ArtificialIntelligence #MachineLearning #OpenSource #Python #VoiceAssistant #Privacy #Whisper #Ollama #LocalLLM #SoftwareEngineering #Developer #SideProject #Tech #Innovation #Automation #DesktopApp #SpeechRecognition #TextToSpeech #CUDA #GPU #Windows #Programming #Coding #BuildInPublic
