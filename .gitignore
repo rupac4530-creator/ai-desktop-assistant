@@ -1,4 +1,4 @@
-﻿venv/
+venv/
 logs/
 .env
 *.pyc
@@ -11,3 +11,9 @@ models/
 *.egg-info/
 dist/
 build/
+browser_profile/
+*.wav
+*.bin
+test_*.wav
+speech/temp_audio.wav
+.env.template
