@@ -16,7 +16,7 @@ echo   AI Desktop Assistant - Create ZIP
 echo ========================================
 echo.
 
-set VERSION=1.0.0
+set VERSION=1.0.1
 set ZIPNAME=ai-desktop-assistant-v%VERSION%.zip
 
 REM Check if 7-Zip is available
