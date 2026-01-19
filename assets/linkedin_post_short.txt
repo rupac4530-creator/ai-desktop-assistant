@@ -1,0 +1,7 @@
+🚀 Just released AI Desktop Assistant v1.0.1 — a voice-controlled AI that runs 100% locally!
+
+🔒 No cloud • 🎤 Whisper STT • 🤖 Local LLM • 🔧 Self-healing
+
+GitHub: https://github.com/rupac4530-creator/ai-desktop-assistant
+
+#AI #OpenSource #Python #VoiceAssistant #Privacy

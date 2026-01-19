@@ -1,0 +1,29 @@
+Subject: Open-Source AI Desktop Assistant — Demo Available | Bedanta Chatterjee
+
+Hi {name},
+
+I'm Bedanta Chatterjee, a developer from India. I recently released **AI Desktop Assistant v1.0.1** — a production-ready, open-source voice assistant that runs 100% locally with zero cloud dependencies.
+
+**What makes it unique:**
+• Voice control via Whisper (GPU-accelerated)
+• Local LLM integration (Ollama/Mistral) — no API keys needed
+• Self-healing system that auto-repairs errors using Git
+• Complete privacy — no data leaves the machine
+
+**Tech Stack:** Python, faster-whisper, Ollama, CUDA, pyttsx3, PyAutoGUI
+
+🔗 **GitHub:** https://github.com/rupac4530-creator/ai-desktop-assistant
+📦 **Release:** https://github.com/rupac4530-creator/ai-desktop-assistant/releases/tag/v1.0.1
+
+I'd love to schedule a **20-minute demo** to show how this project demonstrates:
+- End-to-end system architecture
+- Real-time audio/AI pipeline design
+- Production-grade error handling & self-healing
+
+Are you available next week for a quick call?
+
+Best regards,
+**Bedanta Chatterjee**
+📧 rupac4530@gmail.com
+📱 +91 8617513035
+🐙 github.com/rupac4530-creator

@@ -1,0 +1,111 @@
+# AI Desktop Assistant - Demo Script (90 seconds)
+
+## Pre-Demo Setup
+1. Ensure Ollama is running: `ollama serve`
+2. Open terminal in project folder
+3. Have Chrome/browser closed initially
+4. Position screen for recording (1920x1080 recommended)
+
+---
+
+## DEMO SCRIPT
+
+### [0:00-0:10] Introduction
+**SPOKEN:** "This is AI Desktop Assistant — a voice-controlled AI that runs completely on your local machine. No cloud, no API keys, no data leaving your computer."
+
+**ON SCREEN:** Show the project folder briefly, then run_assistant.bat
+
+---
+
+### [0:10-0:20] Launch
+**ACTION:** Double-click `run_assistant_with_overlay.bat`
+
+**SPOKEN:** "Let's start it up. The overlay shows the current status."
+
+**ON SCREEN:** Terminal opens, overlay appears in corner
+
+---
+
+### [0:20-0:35] First Voice Command
+**ACTION:** Press Ctrl+Shift+A, speak clearly
+
+**SPOKEN TO ASSISTANT:** "What time is it right now?"
+
+**PAUSE:** Wait for transcription + LLM response + TTS
+
+**ON SCREEN:** Show transcription appearing, then the response
+
+---
+
+### [0:35-0:50] Browser Automation
+**ACTION:** Press Ctrl+Shift+A again
+
+**SPOKEN TO ASSISTANT:** "Open Chrome and search for Python machine learning tutorials"
+
+**PAUSE:** Wait for Chrome to open and search to complete
+
+**ON SCREEN:** Chrome opens, navigates to Google, performs search
+
+---
+
+### [0:50-1:05] Application Control
+**ACTION:** Press Ctrl+Shift+A
+
+**SPOKEN TO ASSISTANT:** "Open Notepad and type: Hello from AI Desktop Assistant"
+
+**PAUSE:** Wait for Notepad + typing
+
+**ON SCREEN:** Notepad opens, text is typed automatically
+
+---
+
+### [1:05-1:20] Self-Healing Demo (Optional)
+**SPOKEN:** "The assistant also monitors its own health and can self-repair errors using Git-backed rollback."
+
+**ON SCREEN:** Show logs/self_heal.log or watchdog status briefly
+
+---
+
+### [1:20-1:30] Closing
+**SPOKEN:** "All of this runs locally using Whisper for speech recognition and Ollama for the AI brain. Check out the GitHub link for installation instructions."
+
+**ON SCREEN:** Show GitHub URL: github.com/rupac4530-creator/ai-desktop-assistant
+
+---
+
+## KEY TIMESTAMPS FOR GIF EXTRACTION
+
+| GIF Name | Start | End | What to Capture |
+|----------|-------|-----|-----------------|
+| demo_voice.gif | 0:20 | 0:35 | Voice command + response |
+| demo_browser.gif | 0:35 | 0:50 | Browser automation |
+| demo_notepad.gif | 0:50 | 1:05 | Notepad typing |
+
+---
+
+## FFmpeg Commands for GIF Creation
+
+```bash
+# Record screen (use OBS or ShareX)
+# Then convert to GIF:
+
+# demo_voice.gif (15 seconds, starting at 20s)
+ffmpeg -ss 00:00:20 -t 15 -i demo_full.mp4 -vf "fps=10,scale=800:-1:flags=lanczos" -c:v gif demo_voice.gif
+
+# demo_browser.gif (15 seconds, starting at 35s)
+ffmpeg -ss 00:00:35 -t 15 -i demo_full.mp4 -vf "fps=10,scale=800:-1:flags=lanczos" -c:v gif demo_browser.gif
+
+# demo_notepad.gif (15 seconds, starting at 50s)
+ffmpeg -ss 00:00:50 -t 15 -i demo_full.mp4 -vf "fps=10,scale=800:-1:flags=lanczos" -c:v gif demo_notepad.gif
+```
+
+---
+
+## Tips for Best Recording
+
+1. Use a quiet room (Whisper works better)
+2. Speak clearly and at normal pace
+3. Wait for each action to complete before speaking again
+4. Keep mouse movements slow and deliberate
+5. Use 1920x1080 resolution for crisp GIFs
+6. Close unnecessary applications to avoid distractions
