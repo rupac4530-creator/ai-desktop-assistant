@@ -1,4 +1,8 @@
-﻿#  AI Desktop Assistant
+﻿Author: Bedanta Chatterjee
+GitHub: https://github.com/Bedanta/ai-desktop-assistant.git
+Release: v1.0.1
+
+#  AI Desktop Assistant
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/downloads/)
@@ -49,7 +53,7 @@
 
 ```ash
 # 1. Clone the repository
-git clone https://github.com/yourusername/ai-desktop-assistant.git
+git clone https://github.com/BedantaChatterjee/ai-desktop-assistant.git
 cd ai-desktop-assistant
 
 # 2. Create virtual environment
@@ -182,4 +186,5 @@ This project is licensed under the MIT License — see [LICENSE](LICENSE) for de
 <p align="center">
   <b>Built with  for privacy and autonomy</b>
 </p>
+
 
