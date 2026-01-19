@@ -6,13 +6,13 @@ Polls components every 2-5s and triggers automatic repairs when problems are det
 
 import os
 import sys
-import time
 import threading
-from pathlib import Path
-from datetime import datetime
-from typing import Dict, Any, Optional, Callable, List
+import time
 from dataclasses import dataclass, field
+from datetime import datetime
 from enum import Enum
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional
 
 # Add project root
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -77,18 +77,18 @@ class Watchdog:
         self._repair_callback: Optional[Callable] = None
         self._tts = None
         self._hud = None
-        
+
         # Component references (set by main_controller)
         self._asr = None
         self._keyboard = None
         self._avatar = None
-        
+
         # Health metrics
         self._last_mic_frame_time = 0
         self._last_transcription_time = 0
         self._last_tts_success_time = 0
         self._transcription_latencies: List[float] = []
-        
+
         log_self_heal("Watchdog initialized")
 
     def set_components(self, asr=None, keyboard=None, tts=None, avatar=None, hud=None):
@@ -98,7 +98,9 @@ class Watchdog:
         self._tts = tts
         self._avatar = avatar
         self._hud = hud
-        log_self_heal(f"Components registered: ASR={asr is not None}, Keyboard={keyboard is not None}, TTS={tts is not None}")
+        log_self_heal(
+            f"Components registered: ASR={asr is not None}, Keyboard={keyboard is not None}, TTS={tts is not None}"
+        )
 
     def set_repair_callback(self, callback: Callable):
         """Set callback to invoke repair engine."""
@@ -122,210 +124,182 @@ class Watchdog:
     def _check_mic_alive(self) -> ComponentHealth:
         """Check if microphone is receiving audio frames."""
         now = time.time()
-        
+
         # Only check if we're supposed to be recording
-        if self._asr and hasattr(self._asr, '_recording') and self._asr._recording:
-            time_since_frame = now - self._last_mic_frame_time if self._last_mic_frame_time else float('inf')
+        if self._asr and hasattr(self._asr, "_recording") and self._asr._recording:
+            time_since_frame = now - self._last_mic_frame_time if self._last_mic_frame_time else float("inf")
             if time_since_frame > 2.0:
                 return ComponentHealth(
                     name="microphone",
                     status=HealthStatus.FAILED,
                     last_check=now,
                     message=f"No audio frames for {time_since_frame:.1f}s while recording",
-                    metrics={"last_frame_age": time_since_frame}
+                    metrics={"last_frame_age": time_since_frame},
                 )
-        
+
         return ComponentHealth(
             name="microphone",
             status=HealthStatus.HEALTHY,
             last_check=now,
             message="Microphone OK",
-            metrics={"last_frame_time": self._last_mic_frame_time}
+            metrics={"last_frame_time": self._last_mic_frame_time},
         )
 
     def _check_asr_ready(self) -> ComponentHealth:
         """Check ASR model status."""
         now = time.time()
-        
+
         if not self._asr:
             return ComponentHealth(
-                name="asr",
-                status=HealthStatus.UNKNOWN,
-                last_check=now,
-                message="ASR not initialized"
+                name="asr", status=HealthStatus.UNKNOWN, last_check=now, message="ASR not initialized"
             )
-        
+
         # Check if model is loaded
-        model_loaded = hasattr(self._asr, 'model') and self._asr.model is not None
+        model_loaded = hasattr(self._asr, "model") and self._asr.model is not None
         if not model_loaded:
             return ComponentHealth(
-                name="asr",
-                status=HealthStatus.FAILED,
-                last_check=now,
-                message="ASR model not loaded"
+                name="asr", status=HealthStatus.FAILED, last_check=now, message="ASR model not loaded"
             )
-        
+
         # Check for CUDA errors (cublas missing)
-        if hasattr(self._asr, '_last_error') and 'cublas' in str(self._asr._last_error).lower():
+        if hasattr(self._asr, "_last_error") and "cublas" in str(self._asr._last_error).lower():
             return ComponentHealth(
                 name="asr",
                 status=HealthStatus.DEGRADED,
                 last_check=now,
                 message="CUDA cublas library missing - need CPU fallback",
-                metrics={"error": str(self._asr._last_error)}
+                metrics={"error": str(self._asr._last_error)},
             )
-        
+
         # Check average latency
-        avg_latency = sum(self._transcription_latencies) / len(self._transcription_latencies) if self._transcription_latencies else 0
+        avg_latency = (
+            sum(self._transcription_latencies) / len(self._transcription_latencies)
+            if self._transcription_latencies
+            else 0
+        )
         if avg_latency > 10.0:
             return ComponentHealth(
                 name="asr",
                 status=HealthStatus.DEGRADED,
                 last_check=now,
                 message=f"High transcription latency: {avg_latency:.1f}s",
-                metrics={"avg_latency": avg_latency}
+                metrics={"avg_latency": avg_latency},
             )
-        
+
         return ComponentHealth(
             name="asr",
             status=HealthStatus.HEALTHY,
             last_check=now,
             message=f"ASR ready ({self._asr.model_name} on {self._asr.device})",
-            metrics={"model": self._asr.model_name, "device": self._asr.device, "avg_latency": avg_latency}
+            metrics={"model": self._asr.model_name, "device": self._asr.device, "avg_latency": avg_latency},
         )
 
     def _check_tts_ready(self) -> ComponentHealth:
         """Check TTS engine status."""
         now = time.time()
-        
+
         if not self._tts:
             return ComponentHealth(
-                name="tts",
-                status=HealthStatus.UNKNOWN,
-                last_check=now,
-                message="TTS not initialized"
+                name="tts", status=HealthStatus.UNKNOWN, last_check=now, message="TTS not initialized"
             )
-        
+
         # Check if engine is available
-        engine_ok = hasattr(self._tts, 'engine') and self._tts.engine is not None
+        engine_ok = hasattr(self._tts, "_engine") and self._tts._engine is not None
         if not engine_ok:
             return ComponentHealth(
-                name="tts",
-                status=HealthStatus.FAILED,
-                last_check=now,
-                message="TTS engine not available"
+                name="tts", status=HealthStatus.FAILED, last_check=now, message="TTS engine not available"
             )
-        
+
         # Check for recent playback issues (0.1s is suspiciously fast)
-        if hasattr(self._tts, '_last_duration') and self._tts._last_duration < 0.5:
+        if hasattr(self._tts, "_last_duration") and self._tts._last_duration < 0.5:
             return ComponentHealth(
                 name="tts",
                 status=HealthStatus.DEGRADED,
                 last_check=now,
                 message="TTS playback too fast - audio may not be playing",
-                metrics={"last_duration": self._tts._last_duration}
+                metrics={"last_duration": self._tts._last_duration},
             )
-        
+
         return ComponentHealth(
             name="tts",
             status=HealthStatus.HEALTHY,
             last_check=now,
             message="TTS ready",
-            metrics={"last_success": self._last_tts_success_time}
+            metrics={"last_success": self._last_tts_success_time},
         )
 
     def _check_hotkeys_registered(self) -> ComponentHealth:
         """Check if keyboard hotkeys are registered."""
         now = time.time()
-        
+
         if not self._keyboard:
             return ComponentHealth(
-                name="hotkeys",
-                status=HealthStatus.UNKNOWN,
-                last_check=now,
-                message="Keyboard listener not initialized"
+                name="hotkeys", status=HealthStatus.UNKNOWN, last_check=now, message="Keyboard listener not initialized"
             )
-        
-        running = hasattr(self._keyboard, '_running') and self._keyboard._running
+
+        running = hasattr(self._keyboard, "_running") and self._keyboard._running
         if not running:
             return ComponentHealth(
-                name="hotkeys",
-                status=HealthStatus.FAILED,
-                last_check=now,
-                message="Keyboard listener not running"
+                name="hotkeys", status=HealthStatus.FAILED, last_check=now, message="Keyboard listener not running"
             )
-        
+
         return ComponentHealth(
-            name="hotkeys",
-            status=HealthStatus.HEALTHY,
-            last_check=now,
-            message="Hotkeys registered"
+            name="hotkeys", status=HealthStatus.HEALTHY, last_check=now, message="Hotkeys registered"
         )
 
     def _check_avatar_connected(self) -> ComponentHealth:
         """Check avatar WebSocket connection."""
         now = time.time()
-        
+
         if not self._avatar:
             return ComponentHealth(
-                name="avatar",
-                status=HealthStatus.UNKNOWN,
-                last_check=now,
-                message="Avatar not initialized"
+                name="avatar", status=HealthStatus.UNKNOWN, last_check=now, message="Avatar not initialized"
             )
-        
-        connected = hasattr(self._avatar, 'ws') and self._avatar.ws is not None
+
+        connected = hasattr(self._avatar, "ws") and self._avatar.ws is not None
         if not connected:
             return ComponentHealth(
                 name="avatar",
                 status=HealthStatus.DEGRADED,  # Not critical
                 last_check=now,
-                message="Avatar not connected (optional)"
+                message="Avatar not connected (optional)",
             )
-        
-        return ComponentHealth(
-            name="avatar",
-            status=HealthStatus.HEALTHY,
-            last_check=now,
-            message="Avatar connected"
-        )
+
+        return ComponentHealth(name="avatar", status=HealthStatus.HEALTHY, last_check=now, message="Avatar connected")
 
     def _check_ptt_ready(self) -> ComponentHealth:
         """Check PTT lifecycle state."""
         now = time.time()
-        
+
         if not self._asr:
             return ComponentHealth(
-                name="ptt",
-                status=HealthStatus.UNKNOWN,
-                last_check=now,
-                message="ASR not initialized"
+                name="ptt", status=HealthStatus.UNKNOWN, last_check=now, message="ASR not initialized"
             )
-        
-        ready = hasattr(self._asr, '_ready_for_ptt') and self._asr._ready_for_ptt
-        recording = hasattr(self._asr, '_recording') and self._asr._recording
-        
+
+        ready = hasattr(self._asr, "_ready_for_ptt") and self._asr._ready_for_ptt
+        recording = hasattr(self._asr, "_recording") and self._asr._recording
+
         if not ready and not recording:
             return ComponentHealth(
                 name="ptt",
                 status=HealthStatus.DEGRADED,
                 last_check=now,
-                message="PTT not ready and not recording - may be stuck"
+                message="PTT not ready and not recording - may be stuck",
             )
-        
+
         return ComponentHealth(
             name="ptt",
             status=HealthStatus.HEALTHY,
             last_check=now,
             message="PTT ready" if ready else "PTT recording",
-            metrics={"ready": ready, "recording": recording}
+            metrics={"ready": ready, "recording": recording},
         )
 
     def run_diagnostics(self) -> DiagnosticReport:
         """Run full diagnostic check on all components."""
         log_self_heal("Running diagnostics...")
         now = time.time()
-        
+
         # Check all components
         checks = [
             self._check_mic_alive(),
@@ -335,9 +309,9 @@ class Watchdog:
             self._check_avatar_connected(),
             self._check_ptt_ready(),
         ]
-        
+
         components = {c.name: c for c in checks}
-        
+
         # Determine overall status
         statuses = [c.status for c in checks]
         if HealthStatus.FAILED in statuses:
@@ -346,11 +320,11 @@ class Watchdog:
             overall = HealthStatus.DEGRADED
         else:
             overall = HealthStatus.HEALTHY
-        
+
         # Collect issues and recommendations
         issues = []
         recommendations = []
-        
+
         for c in checks:
             if c.status == HealthStatus.FAILED:
                 issues.append(f"{c.name}: {c.message}")
@@ -372,46 +346,48 @@ class Watchdog:
                     recommendations.append("switch_asr_to_cpu")
                 if "too fast" in c.message.lower():
                     recommendations.append("restart_tts")
-        
+
         report = DiagnosticReport(
             timestamp=now,
             components=components,
             overall_status=overall,
             issues=issues,
-            recommendations=list(dict.fromkeys(recommendations))  # Remove duplicates
+            recommendations=list(dict.fromkeys(recommendations)),  # Remove duplicates
         )
-        
+
         self._last_diagnostics = report
-        
+
         # Log
         status_str = overall.value.upper()
-        log_self_heal(f"Diagnostics complete: {status_str}, {len(issues)} issues, {len(recommendations)} recommendations")
+        log_self_heal(
+            f"Diagnostics complete: {status_str}, {len(issues)} issues, {len(recommendations)} recommendations"
+        )
         for issue in issues:
             log_self_heal(f"  Issue: {issue}")
-        
+
         return report
 
     def get_status(self) -> Dict[str, Any]:
         """Get current status summary."""
         if not self._last_diagnostics:
             self.run_diagnostics()
-        
+
         d = self._last_diagnostics
         return {
             "overall": d.overall_status.value,
             "issues": d.issues,
             "recommendations": d.recommendations,
             "last_check": d.timestamp,
-            "components": {name: c.status.value for name, c in d.components.items()}
+            "components": {name: c.status.value for name, c in d.components.items()},
         }
 
     def get_status_text(self) -> str:
         """Get human-readable status for TTS."""
         status = self.get_status()
-        
+
         if status["overall"] == "healthy":
             return "All systems operational."
-        
+
         issue_count = len(status["issues"])
         if issue_count == 1:
             return f"I detected one issue: {status['issues'][0]}"
@@ -423,7 +399,7 @@ class Watchdog:
         while self._running:
             try:
                 report = self.run_diagnostics()
-                
+
                 # Auto-trigger repairs if enabled
                 if report.overall_status in [HealthStatus.FAILED, HealthStatus.DEGRADED]:
                     if self._repair_callback and os.getenv("SELF_HEAL_AUTO_REPAIR", "true").lower() == "true":
@@ -432,17 +408,17 @@ class Watchdog:
                             self._repair_callback(report)
                         except Exception as e:
                             log_self_heal(f"Repair callback error: {e}", "ERROR")
-                
+
             except Exception as e:
                 log_self_heal(f"Poll error: {e}", "ERROR")
-            
+
             time.sleep(self._poll_interval)
 
     def start(self):
         """Start background monitoring."""
         if self._running:
             return
-        
+
         self._running = True
         self._thread = threading.Thread(target=self._poll_loop, daemon=True)
         self._thread.start()
@@ -458,6 +434,7 @@ class Watchdog:
 
 # Singleton
 _watchdog: Optional[Watchdog] = None
+
 
 def get_watchdog() -> Watchdog:
     global _watchdog

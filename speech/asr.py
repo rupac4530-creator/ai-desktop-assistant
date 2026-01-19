@@ -11,22 +11,43 @@ Advanced Automatic Speech Recognition with:
 - Confidence tracking and logging
 """
 
+# === CUDA DLL PATH FIX (must be BEFORE any CUDA imports) ===
 import os
 import sys
-import queue
-import threading
-import tempfile
-import time
+
+# Add NVIDIA CUDA library paths to DLL search path
+_venv_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_nvidia_paths = [
+    os.path.join(_venv_base, "venv", "Lib", "site-packages", "nvidia", "cublas", "bin"),
+    os.path.join(_venv_base, "venv", "Lib", "site-packages", "nvidia", "cudnn", "bin"),
+    os.path.join(_venv_base, "venv", "Lib", "site-packages", "nvidia", "cuda_runtime", "bin"),
+]
+for _p in _nvidia_paths:
+    if os.path.isdir(_p):
+        os.environ["PATH"] = _p + os.pathsep + os.environ.get("PATH", "")
+        if hasattr(os, "add_dll_directory"):
+            try:
+                os.add_dll_directory(_p)
+            except Exception:
+                pass
+# === END CUDA DLL PATH FIX ===
+
 import json
 import logging
-from pathlib import Path
-import numpy as np
+import queue
+import tempfile
+import threading
+import time
 from datetime import datetime
+from pathlib import Path
+
+import numpy as np
 
 # Audio libraries
 try:
     import sounddevice as sd
     import soundfile as sf
+
     AUDIO_AVAILABLE = True
 except ImportError:
     sd = None
@@ -36,6 +57,7 @@ except ImportError:
 # Noise reduction
 try:
     import noisereduce as nr
+
     NR_AVAILABLE = True
 except ImportError:
     nr = None
@@ -44,6 +66,7 @@ except ImportError:
 # Voice Activity Detection
 try:
     import webrtcvad
+
     VAD_AVAILABLE = True
 except ImportError:
     webrtcvad = None
@@ -52,6 +75,7 @@ except ImportError:
 # faster-whisper
 try:
     from faster_whisper import WhisperModel
+
     WHISPER_AVAILABLE = True
 except ImportError:
     WhisperModel = None
@@ -83,6 +107,7 @@ stt_handler = logging.FileHandler(stt_log_path)
 stt_handler.setFormatter(logging.Formatter("%(asctime)s - %(message)s"))
 stt_logger.addHandler(stt_handler)
 
+
 def log_debug(msg):
     ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
     try:
@@ -91,6 +116,7 @@ def log_debug(msg):
     except:
         pass
 
+
 def log_improvement(msg):
     ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     try:
@@ -98,6 +124,7 @@ def log_improvement(msg):
             f.write(f"[{ts}] {msg}\n")
     except:
         pass
+
 
 # Load mic calibration if available
 MIC_CONFIG_PATH = Path(__file__).parent.parent / "config" / "mic.json"
@@ -115,27 +142,29 @@ if MIC_CONFIG_PATH.exists():
 # ============== CUDA DETECTION (CACHED) ==============
 _cuda_available = None
 
+
 def check_cuda_available() -> bool:
     """Check CUDA availability ONCE at startup. Cache result."""
     global _cuda_available
     if _cuda_available is not None:
         return _cuda_available
-    
+
     if DEVICE != "cuda":
         _cuda_available = False
         log_improvement("CUDA status: disabled by config (DEVICE != cuda)")
         print("[ASR] CUDA disabled by config")
         return False
-    
+
     try:
         import ctranslate2
+
         cuda_count = ctranslate2.get_cuda_device_count()
         if cuda_count == 0:
             _cuda_available = False
             log_improvement("CUDA status: no CUDA devices found")
             print("[ASR] No CUDA devices found")
             return False
-        
+
         # Try to actually load a tiny test to verify cuBLAS
         try:
             test_model = WhisperModel("tiny", device="cuda", compute_type="float16")
@@ -145,7 +174,7 @@ def check_cuda_available() -> bool:
             print("[ASR] CUDA verified working")
             return True
         except Exception as e:
-            if 'cublas' in str(e).lower():
+            if "cublas" in str(e).lower():
                 _cuda_available = False
                 log_improvement(f"CUDA status: unavailable (cuBLAS missing) -> using CPU fallback")
                 print(f"[ASR] CUDA unavailable (cuBLAS missing) - using CPU")
@@ -168,7 +197,7 @@ class ASREngine:
     def __init__(self, model_name: str = None, device: str = None):
         # Check CUDA once at startup
         self.cuda_available = check_cuda_available()
-        
+
         # Choose device and model based on CUDA availability
         if self.cuda_available:
             self.device = "cuda"
@@ -182,7 +211,7 @@ class ASREngine:
             if STT_MODEL == "large-v2":
                 print(f"[ASR] CPU mode: using '{self.model_name}' instead of 'large-v2' for speed")
                 log_improvement(f"Model switched: large-v2 -> {self.model_name} for CPU speed")
-        
+
         self.model = None
         self.vad = None
         self.stream = None
@@ -193,7 +222,7 @@ class ASREngine:
         self._record_start_time = None
         self._last_audio_time = None
         self._lock = threading.Lock()
-        
+
         # Ready state for PTT reattachment
         self._ready_for_ptt = True
 
@@ -275,16 +304,16 @@ class ASREngine:
         if not AUDIO_AVAILABLE:
             print("[ASR] Audio libraries not available")
             return False
-        
+
         # Get device index from env or state
         device_idx = self._get_mic_device_index()
         sample_rate = int(os.getenv("MIC_SAMPLE_RATE", str(SAMPLE_RATE)))
-        
+
         try:
             # Close any existing stream first
             self.stop_stream()
             time.sleep(0.3)  # Brief pause before reopening
-            
+
             self.stream = sd.InputStream(
                 samplerate=sample_rate,
                 channels=CHANNELS,
@@ -303,7 +332,7 @@ class ASREngine:
             if self.on_mic_error:
                 self.on_mic_error("Cannot access microphone. Check permissions.")
             return False
-    
+
     def _get_mic_device_index(self):
         """Get the configured microphone device index."""
         # Check environment variable first
@@ -313,7 +342,7 @@ class ASREngine:
                 return int(env_idx)
             except ValueError:
                 pass
-        
+
         # Check state.json
         state_file = Path(__file__).parent.parent / "core" / "state.json"
         if state_file.exists():
@@ -323,7 +352,7 @@ class ASREngine:
                     return state["mic_device_index"]
             except:
                 pass
-        
+
         # Return None to use system default
         return None
 
@@ -426,13 +455,13 @@ class ASREngine:
             frame_size = int(SAMPLE_RATE * 0.03)  # 30ms frames
             voiced = []
             for i in range(0, len(audio) - frame_size, frame_size):
-                frame = audio[i:i+frame_size].astype(np.int16).tobytes()
+                frame = audio[i : i + frame_size].astype(np.int16).tobytes()
                 if len(frame) == frame_size * 2:
                     try:
                         if self.vad.is_speech(frame, SAMPLE_RATE):
-                            voiced.append(audio[i:i+frame_size])
+                            voiced.append(audio[i : i + frame_size])
                     except:
-                        voiced.append(audio[i:i+frame_size])
+                        voiced.append(audio[i : i + frame_size])
 
             if voiced:
                 result = np.concatenate(voiced)
@@ -489,13 +518,9 @@ class ASREngine:
             # Transcribe
             start_time = time.time()
             log_debug(f"Transcription started")
-            
+
             segments, info = self.model.transcribe(
-                temp_path,
-                beam_size=5,
-                language="en",
-                vad_filter=True,
-                word_timestamps=True
+                temp_path, beam_size=5, language="en", vad_filter=True, word_timestamps=True
             )
 
             text_parts = []
@@ -511,10 +536,12 @@ class ASREngine:
 
             elapsed = time.time() - start_time
             audio_duration = len(audio) / SAMPLE_RATE
-            
+
             print(f"[ASR] Transcribed in {elapsed:.1f}s: '{text[:50]}...' (conf={avg_confidence:.2f})")
             log_debug(f"Transcription completed: {elapsed:.1f}s, conf={avg_confidence:.2f}")
-            log_improvement(f"Transcription: {elapsed:.1f}s for {audio_duration:.1f}s audio, model={self.model_name}, device={self.device}")
+            log_improvement(
+                f"Transcription: {elapsed:.1f}s for {audio_duration:.1f}s audio, model={self.model_name}, device={self.device}"
+            )
 
             # Log to file
             stt_logger.info(f"duration={audio_duration:.1f}s | conf={avg_confidence:.2f} | text={text}")
@@ -572,12 +599,14 @@ class ASREngine:
 # Singleton instance
 _engine = None
 
+
 def get_engine() -> ASREngine:
     """Get or create singleton ASR engine."""
     global _engine
     if _engine is None:
         _engine = ASREngine()
     return _engine
+
 
 def reinitialize_engine():
     """Reinitialize the ASR engine."""
@@ -605,4 +634,3 @@ if __name__ == "__main__":
 
     engine.stop_stream()
     print("\nDone!")
-
