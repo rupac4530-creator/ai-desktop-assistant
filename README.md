@@ -2,6 +2,10 @@
 GitHub: https://github.com/Bedanta/ai-desktop-assistant.git
 Release: v1.0.1
 
+Author: Bedanta Chatterjee
+GitHub: https://github.com/Bedanta/ai-desktop-assistant.git
+Release: v1.0.1
+
 #  AI Desktop Assistant
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
