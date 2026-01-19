@@ -1,9 +1,9 @@
 ﻿Author: Bedanta Chatterjee
-GitHub: https://github.com/Bedanta/ai-desktop-assistant.git
+GitHub: https://github.com/rupac4530-creator/ai-desktop-assistant.git
 Release: v1.0.1
 
 Author: Bedanta Chatterjee
-GitHub: https://github.com/Bedanta/ai-desktop-assistant.git
+GitHub: https://github.com/rupac4530-creator/ai-desktop-assistant.git
 Release: v1.0.1
 
 #  AI Desktop Assistant
@@ -57,7 +57,7 @@ Release: v1.0.1
 
 ```ash
 # 1. Clone the repository
-git clone https://github.com/BedantaChatterjee/ai-desktop-assistant.git
+git clone https://github.com/rupac4530-creator/ai-desktop-assistant.git
 cd ai-desktop-assistant
 
 # 2. Create virtual environment
@@ -190,5 +190,6 @@ This project is licensed under the MIT License — see [LICENSE](LICENSE) for de
 <p align="center">
   <b>Built with  for privacy and autonomy</b>
 </p>
+
 
 

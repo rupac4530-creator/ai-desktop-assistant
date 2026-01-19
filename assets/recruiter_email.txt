@@ -1,0 +1,15 @@
+﻿Subject: AI Desktop Assistant (open-source) â€” Bedanta Chatterjee â€” available for roles
+
+Hi [Name],
+
+My name is Bedanta Chatterjee. I recently built and open-sourced an AI Desktop Assistant (Python). Itâ€™s an autonomous, self-healing assistant with offline-first LLM integration, voice commands (PTT), TTS, OCR and Git-backed autonomous repair. Itâ€™s packaged with docs and a release:
+
+GitHub: https://github.com/rupac4530-creator/ai-desktop-assistant.git
+Release: https://github.com/rupac4530-creator/ai-desktop-assistant.git/releases/tag/v1.0.1
+
+Iâ€™m actively looking for roles in AI tooling, automation, or developer experience. Iâ€™d appreciate a chance to interview or demonstrate the project.
+
+Thanks,
+Bedanta Chatterjee
+Email: rupac4530@gmail.com
+

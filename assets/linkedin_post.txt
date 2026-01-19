@@ -1,0 +1,7 @@
+﻿I just released v1.0 of my open-source project: AI Desktop Assistant â€” a self-healing, offline-first desktop assistant with voice, TTS, OCR, and autonomous repair. ðŸš€
+
+Demo + code: https://github.com/rupac4530-creator/ai-desktop-assistant.git
+Release: https://github.com/rupac4530-creator/ai-desktop-assistant.git/releases/tag/v1.0.1
+
+Iâ€™m Bedanta Chatterjee â€” looking for remote/onsite roles in AI tooling, developer tools, and automation. Open to referrals and internships. #opensource #python #ai
+
