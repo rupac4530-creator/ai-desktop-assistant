@@ -1,0 +1,96 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Generate changelog
+        id: changelog
+        run: |
+          # Get previous tag
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          
+          # Generate changelog from commits
+          if [ -n "$PREV_TAG" ]; then
+            CHANGES=$(git log --oneline $PREV_TAG..HEAD --pretty=format:"- %s")
+          else
+            CHANGES=$(git log --oneline --pretty=format:"- %s" | head -20)
+          fi
+          
+          echo "changes<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release ${{ github.ref_name }}
+          body: |
+            ## What's Changed
+            
+            ${{ steps.changelog.outputs.changes }}
+            
+            ## Installation
+            
+            1. Download the source code (zip)
+            2. Extract and run: `pip install -r requirements.txt`
+            3. Copy `.env.example` to `.env` and configure
+            4. Run: `python main.py`
+            
+            See [INSTALL.md](https://github.com/rupac4530-creator/ai-desktop-assistant/blob/main/INSTALL.md) for detailed instructions.
+            
+            ## Requirements
+            
+            - Python 3.10+
+            - NVIDIA GPU (4GB+ VRAM recommended)
+            - Ollama with a local LLM
+            
+          draft: false
+          prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Build Windows executable for releases
+  build-windows:
+    runs-on: windows-latest
+    needs: release
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+          pip install -r requirements.txt
+          
+      - name: Build executable
+        run: |
+          pyinstaller --onefile --name ai-assistant --add-data ".env.example;." main.py
+        continue-on-error: true
+          
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/ai-assistant.exe
+        if: success()
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

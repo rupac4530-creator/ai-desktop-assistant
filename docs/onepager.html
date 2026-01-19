@@ -1,20 +1,118 @@
-﻿<!doctype html>
-<html>
-<head><meta charset='utf-8'><title>AI Desktop Assistant â€” One Pager</title></head>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Desktop Assistant - Bedanta Chatterjee</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #1a1a1a;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .header h1 { font-size: 24pt; color: #1e40af; margin-bottom: 5px; }
+        .header .subtitle { font-size: 12pt; color: #4b5563; }
+        .contact { display: flex; justify-content: center; gap: 20px; margin-top: 10px; font-size: 10pt; }
+        .contact a { color: #2563eb; text-decoration: none; }
+        .section { margin-bottom: 18px; }
+        .section h2 { font-size: 13pt; color: #1e40af; border-bottom: 1px solid #d1d5db; padding-bottom: 3px; margin-bottom: 8px; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        ul { padding-left: 18px; }
+        li { margin-bottom: 5px; }
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .feature { background: #f3f4f6; padding: 10px; border-radius: 6px; border-left: 3px solid #2563eb; }
+        .feature strong { color: #1e40af; }
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { background: #dbeafe; color: #1e40af; padding: 4px 10px; border-radius: 15px; font-size: 9pt; }
+        .highlight-box { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); color: white; padding: 15px; border-radius: 8px; text-align: center; margin-top: 15px; }
+        .highlight-box a { color: #bfdbfe; }
+        .stats { display: flex; justify-content: space-around; text-align: center; margin: 15px 0; }
+        .stat-item .number { font-size: 20pt; font-weight: bold; color: #1e40af; }
+        .stat-item .label { font-size: 9pt; color: #6b7280; }
+        @media print { body { padding: 0.3in; } .highlight-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+    </style>
+</head>
 <body>
-<h1>AI Desktop Assistant â€” v1.0.1</h1>
-<p><strong>Author:</strong> Bedanta Chatterjee</p>
-<p><strong>GitHub:</strong> https://github.com/Bedanta/ai-desktop-assistant.git</p>
-<h2>Short description</h2>
-<p>Self-healing, offline-first desktop assistant with STT, TTS, OCR, automation, and autonomous patching.</p>
-<h2>Features</h2>
-<ul>
-<li>Push-to-talk and typed commands</li>
-<li>Self-healing watchdog & automated repair</li>
-<li>Git-backed autonomous fixes</li>
-<li>Playwright browser automation and OCR</li>
-</ul>
-<p><img src='../assets/demo_screenshot.png' style='max-width:800px;'></p>
-<p>Contact: Bedanta Chatterjee â€” rupac4530@gmail.com</p>
+    <div class="header">
+        <h1>AI Desktop Assistant</h1>
+        <div class="subtitle">Autonomous, Self-Healing Voice Assistant with Offline LLM Integration</div>
+        <div class="contact">
+            <span><strong>Bedanta Chatterjee</strong></span>
+            <span><a href="mailto:rupac4530@gmail.com">rupac4530@gmail.com</a></span>
+            <span>+91 8617513035</span>
+            <span><a href="https://github.com/rupac4530-creator">github.com/rupac4530-creator</a></span>
+        </div>
+    </div>
+    <div class="stats">
+        <div class="stat-item"><div class="number">15+</div><div class="label">Python Modules</div></div>
+        <div class="stat-item"><div class="number">4</div><div class="label">LLM Models</div></div>
+        <div class="stat-item"><div class="number">100%</div><div class="label">Offline-First</div></div>
+        <div class="stat-item"><div class="number">v1.0</div><div class="label">Production Release</div></div>
+    </div>
+    <div class="section">
+        <h2>Core Features</h2>
+        <div class="feature-grid">
+            <div class="feature"><strong>Self-Healing Autonomy</strong><br>Git rollback + Ollama-powered code repair. Fixes its own runtime errors automatically.</div>
+            <div class="feature"><strong>Voice Control</strong><br>Push-to-talk with Whisper ASR. CUDA-accelerated speech recognition.</div>
+            <div class="feature"><strong>Multi-LLM Support</strong><br>Ollama integration with Mistral, LLaMA, CodeLLaMA, StarCoder2.</div>
+            <div class="feature"><strong>OCR Screen Reading</strong><br>Read any screen content via Tesseract. Voice-accessible workflows.</div>
+        </div>
+    </div>
+    <div class="two-col">
+        <div class="section">
+            <h2>Architecture Highlights</h2>
+            <ul>
+                <li><strong>Event-Driven Core</strong> - Clean separation with plugin system</li>
+                <li><strong>Watchdog Diagnostics</strong> - Component health checks with auto-recovery</li>
+                <li><strong>Modular Design</strong> - Speech, LLM, OCR, TTS as independent modules</li>
+                <li><strong>Graceful Degradation</strong> - Fallback strategies when components fail</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>Use Cases</h2>
+            <ul>
+                <li><strong>Accessibility</strong> - Voice-controlled computing for vision-impaired users</li>
+                <li><strong>Developer Productivity</strong> - Code generation and error fixing via voice</li>
+                <li><strong>Privacy-First AI</strong> - No cloud APIs, all processing local</li>
+                <li><strong>Automation</strong> - Script execution, file management, system control</li>
+            </ul>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Technology Stack</h2>
+        <div class="tech-tags">
+            <span class="tag">Python 3.11+</span>
+            <span class="tag">Ollama</span>
+            <span class="tag">Whisper ASR</span>
+            <span class="tag">CUDA/cuBLAS</span>
+            <span class="tag">pyttsx3</span>
+            <span class="tag">Tesseract OCR</span>
+            <span class="tag">sounddevice</span>
+            <span class="tag">Git</span>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Roadmap</h2>
+        <ul>
+            <li><strong>v1.1</strong> - Linux/macOS support, GUI mode toggle, plugin registry</li>
+            <li><strong>v1.2</strong> - Browser agent, calendar integration, multi-language TTS</li>
+            <li><strong>Future</strong> - Mobile companion app, distributed agent network</li>
+        </ul>
+    </div>
+    <div class="highlight-box">
+        <strong>Ready to Deploy - 100% Open Source - MIT Licensed</strong><br>
+        <a href="https://github.com/rupac4530-creator/ai-desktop-assistant">github.com/rupac4530-creator/ai-desktop-assistant</a>
+    </div>
 </body>
 </html>

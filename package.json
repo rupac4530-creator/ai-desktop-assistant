@@ -1,0 +1,28 @@
+{
+  "name": "AI Desktop Assistant",
+  "version": "1.0.1",
+  "license": "MIT",
+  "author": "Bedanta Chatterjee",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rupac4530-creator/ai-desktop-assistant"
+  },
+  "keywords": [
+    "ai",
+    "voice-assistant",
+    "whisper",
+    "ollama",
+    "local-llm",
+    "privacy",
+    "desktop-automation",
+    "python"
+  ],
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/rupac4530-creator"
+  },
+  "bugs": {
+    "url": "https://github.com/rupac4530-creator/ai-desktop-assistant/issues"
+  },
+  "homepage": "https://github.com/rupac4530-creator/ai-desktop-assistant#readme"
+}

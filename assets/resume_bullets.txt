@@ -1,0 +1,33 @@
+﻿BEDANTA CHATTERJEE
+AI Desktop Assistant Developer
+rupac4530@gmail.com | +91 8617513035 | github.com/rupac4530-creator
+
+EXPERIENCE BULLET POINTS
+========================
+
+For AI/ML Roles:
+- Designed and built an offline-first AI Desktop Assistant using Python with self-healing autonomy, voice control (Whisper ASR), TTS, and multi-LLM support (Ollama)
+- Implemented autonomous repair system with Git rollback and Ollama-powered code generation for runtime error recovery
+- Integrated CUDA-accelerated Whisper ASR and optimized DLL loading for Windows GPU environments
+
+For DevTools/Automation Roles:
+- Engineered modular plugin system supporting hotkey bindings, OCR screen reading, and real-time voice command dispatch
+- Built production-grade watchdog diagnostics with component health checks and automatic recovery strategies
+- Developed cross-platform voice interaction system with push-to-talk and configurable audio backends
+
+For Full-Stack/Systems Roles:
+- Architected event-driven desktop assistant with clean separation of concerns across 15+ Python modules
+- Implemented comprehensive error handling with structured logging, JSON config, and graceful degradation
+- Created professional open-source project with full documentation, CI templates, and community contribution guidelines
+
+KEY TECHNICAL SKILLS
+====================
+Languages: Python (advanced), PowerShell, Bash
+AI/ML: Ollama, Whisper, Transformers, CUDA/cuBLAS integration
+Libraries: pyttsx3, sounddevice, keyboard, pyautogui, Pillow, pytesseract
+Tools: Git, GitHub Actions, VS Code, Windows SDK
+Practices: Event-driven architecture, plugin systems, self-healing software
+
+PROJECT LINK
+============
+https://github.com/rupac4530-creator/ai-desktop-assistant

@@ -1,7 +1,0 @@
-﻿# Placeholder for demo screenshot
-Replace this file with an actual screenshot of the application.
-
-Recommended: 1280x720 or 1920x1080 PNG showing:
-- The avatar window
-- The terminal/console output
-- A voice command in action
